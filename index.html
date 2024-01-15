@@ -11,11 +11,6 @@
 
       <title>Alice Vitória - portfólio</title>
 
-      <link href="/" rel="canonical">
-
-      <!-- Fonts -->
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
-
       <!-- Ionicons -->
       <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet">
 
@@ -23,24 +18,149 @@
 
     <body>
 
-      <div id="home"></div>
+      <div id="container">
+
+        <div id="home">
+  
+          <div id="header">
+
+            <div id="logo">A</div>
+
+            <div id="topicos">
+              <i>Home</i>
+              <i>Projetos</i>
+            </div>
+
+            <div style="display: flex; gap: 20px; justify-content: end;">
+              <i style="font-size: 25px;" class="ion-ios-mail"></i>
+              <i style="font-size: 25px;" class="ion-logo-linkedin"></i>
+              <i style="font-size: 25px;" class="ion-logo-github"></i>
+            </div>
+
+          </div>
+
+          <div id="apresentacao">
+
+            <div style="font-family: 'Josefin Sans Bold'; font-size: 45px;">
+              Olá, eu sou<br>Alice Vitória
+              <div style="font-family: 'Josefin Sans Regular'; font-size: 20px; margin-top: 20px;">Sou desenvolvedora Full Stack a 1 ano e bla bla bla bla bla</div>
+            </div>
+
+            <button>Ver projetos</button>
+
+          </div>
+  
+        </div>
+  
+        <div></div>
+
+      </div>
 
       <style>
 
+        @font-face {
+          font-family: 'Josefin Sans Regular';
+          src: url('static/JosefinSans-Regular.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Josefin Sans Bold';
+          src: url('static/JosefinSans-Bold.ttf') format('truetype');
+          font-weight: bold;
+          font-style: normal;
+        }
+
         :root{
           --preto: #000;
+          --branco: #fff;
+          --vermelho: rgb(143, 0, 0);
         }
 
         body{
           margin: 0;
           background-color: var(--preto);
+          height: 100vh;
+          width: 100vw;
+          color: var(--branco);
+          font-family: 'Josefin Sans Regular', Courier, monospace;
         }
 
-        #home{
-          background-image: url('fundo.jpg');
-          background-repeat: no-repeat;
+        #container{
+          width: 100%;
+          height: 100%;
         }
 
+        #home {
+          position: relative;
+          background: url('fundo2.jpg') no-repeat center;
+          background-size: 100%;
+          padding: 55px;
+        }
+
+        #home::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 50px; /* Altura da borda */
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        }
+
+        i{
+          font-style: normal;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        i:hover{ color: var(--vermelho); }
+
+        #header{
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          align-items: center;
+        }
+
+        #logo{
+          padding: 5px;
+          border: 3px solid var(--branco);
+          border-radius: 100%;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Josefin Sans Bold';
+        }
+
+        #topicos{
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+        }
+
+        #apresentacao{
+          padding-top: 150px;
+          text-align: center;
+        }
+
+        button{
+          border: none;
+          background: var(--vermelho);
+          font-family: 'Josefin Sans Bold';
+          transition: all 0.3s ease;
+          padding: 15px 25px;
+          border-radius: 50px;
+          margin: 45px 0 70px 0;
+          cursor: pointer;
+        }
+
+        button:hover{
+          background: var(--vermelho);
+        }
+    
       </style>
       
     </body>
