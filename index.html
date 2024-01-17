@@ -9,7 +9,7 @@
       <meta content="IE=edge" http-equiv="X-UA-Compatible">
       <meta content="width=device-width, initial-scale=1" name="viewport">
 
-      <title>Alice Vitória - portfólio</title>
+      <title>Alice Vitória - portifólio</title>
 
       <!-- Ionicons -->
       <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet">
@@ -27,23 +27,26 @@
             <div id="logo">A</div>
 
             <div id="topicos">
-              <i href="#home">Home</i>
-              <i href="#projetos">Projetos</i>
+              <a style="text-decoration: none; color: var(--branco);" class="top" href="#home">Home</a>
+              <a style="text-decoration: none; color: var(--branco);" class="top" href="#projetos">Projetos</a>
             </div>
 
             <div style="display: flex; gap: 20px; justify-content: end;">
-              <i style="font-size: 25px;" class="ion-ios-mail"></i>
-              <i style="font-size: 25px;" class="ion-logo-linkedin"></i>
-              <i style="font-size: 25px;" class="ion-logo-github"></i>
+              <i style="font-size: 25px;" class="top ion-ios-mail" onclick="copiar('alice.vitori64@gmail.com')"></i>
+              <i style="font-size: 25px;" class="top ion-logo-linkedin" onclick="window.open('www.linkedin.com/in/alice-vitória-5245a22a4')"></i>
+              <i style="font-size: 25px;" class="top ion-logo-github" onclick="window.open('https://github.com/alicevitoriaa')"></i>
             </div>
 
           </div>
 
           <div id="apresentacao">
 
-            <div style="font-family: 'Josefin Sans Bold'; font-size: 45px;">
-              Olá <i class="ion-ios-code-working"></i><br>eu sou Alice Vitória
-              <div style="font-family: 'Josefin Sans Regular'; font-size: 20px; margin-top: 20px;">Tenho 17 anos e sou desenvolvedora Full Stack com experiência profissional de 9 meses</div>
+            <div>
+              
+              <div class="txtP">Olá <i class="ion-ios-code-working"></i></div>
+              <div style="margin-top: 15px" class="txtP">eu sou Alice Vitória</div>
+              <div style="font-size: 20px; margin-top: 25px;">Tenho 17 anos e sou desenvolvedora Full Stack com experiência profissional de 9 meses</div>
+
             </div>
 
             <button href="#projetos">Ver projetos</button>
@@ -89,6 +92,10 @@
         </div>
 
       </div>
+
+      <script>
+
+      </script>
 
       <style>
 
@@ -149,13 +156,17 @@
           background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
         }
 
-        i{
+        .top{
           font-style: normal;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
-        i:hover{ color: var(--vermelho); }
+        .top:hover{ color: var(--vermelho)!important; }
+
+        html {
+          scroll-behavior: smooth;
+        }
 
         #header{
           display: grid;
@@ -227,6 +238,8 @@
         .card:hover .cort{
           top: -264px;
         }
+
+        .txtP{ font-family: 'Josefin Sans Bold'; font-size: 45px; }
     
       </style>
       
