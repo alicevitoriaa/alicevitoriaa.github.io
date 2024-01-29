@@ -1,0 +1,153 @@
+@font-face { font-family: Gotham B; src: url(../fonts/Gotham-Bold.otf); }
+
+@font-face { font-family: Gotham L; src: url(../fonts/Gotham-Light.otf); }
+
+@font-face { font-family: Gotham M; src: url(../fonts/Gotham-Medium.otf); }
+
+
+:root{
+
+    --verde-claro: #c5cf9b;
+    --verde-escuro: #485a4b;
+    --verde-wtp: #3a9713;
+    --cor-botao: #af5f48;
+    --branco: #fff;
+    --vermelho-claro: #f5e8df;
+    --preto: #000;
+    --cinza: #b7b7b7;
+
+}
+
+
+body{ 
+    
+    background: #860000; 
+    height: 100vh;
+    margin: 0;
+    font-family: Gotham L!important;
+    overflow-x: hidden;
+
+}
+
+img { object-fit: cover; mix-blend-mode: multiply }
+
+#head { 
+    
+    justify-content: center; 
+    padding: 1rem; 
+    background: rgba(197, 207, 155, 0.9); 
+    position: absolute;
+    width: 100%;
+    top: 0;
+
+}
+
+#footer{ position: fixed; bottom: 0; width: 100%; }
+
+#divRedes{ align-items: center; justify-content: center; gap: 10px; padding: 1rem; }
+
+#p1{ 
+
+    background-image: url("../imgs/MDR_FITNESSCENTER.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 660px;
+    padding-top: 80.63px;
+
+}
+
+#boasVindas{
+
+    background: rgba(0, 0, 0, 0.7);
+    padding: 100px 320px 90px 90px;
+    text-align: end;
+    color: var(--branco);
+    width: 70%;
+    gap: 10px;
+
+}
+
+.formulario{
+
+    background: var(--verde-escuro);
+    width: 440px;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+
+}
+
+input{ border-radius: 5px!important }
+
+input:focus { box-shadow: none!important; }
+
+label, option { font-size: 13px; margin: 0 calc(var(--bs-gutter-x) * .5); }
+
+.form-floating > label { display: flex; align-items: center;  }
+
+.btnE {
+
+    background: var(--cor-botao)!important;
+    opacity: 0.5;
+    width: 100%;
+    cursor: no-drop;
+    border: none!important;
+    padding: 1rem!important;
+
+}
+
+.btn { font-size: 12px!important; }
+
+.btnR {
+
+    background: none!important;
+    width: 100%;
+    cursor: no-drop!important;
+    border: 1px solid var(--cor-botao)!important;
+    padding: 1rem!important;
+
+}
+
+#vantagens{
+
+    padding: 50px 0 50px 50px;
+    background-image: url("../imgs/img-lp.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    justify-content: end;
+    display: flex;
+
+}
+
+#bannerV{
+
+    background: rgba(197, 207, 155, 0.9); 
+    display: grid; 
+    gap: 10px; 
+    padding: 35px 40px;
+    width: 53%;
+    color: var(--branco);
+
+}
+
+#comodos, #estrutura, #planta{
+    
+    padding: 50px 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--verde-escuro);
+    
+}
+
+.figure-caption{ text-align: center!important; font-size: 12px!important; }
+
+.zoomD{ justify-content: center; display: flex; align-items: center; gap: 10px; }
+
+.plant:hover, .p:hover { width: 300px; }
+
+.plant, .p { transition: all 0.3s ease; cursor: pointer; }
