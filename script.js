@@ -124,7 +124,7 @@ function criarLead() {
     var cidade = $('cd').val()
     var mensagem = $('#mensagem').val()
 
-    $.post('../registrarLead.php', {nome: nome, email: email, telefone: telefone, estado: estado, cidade: cidade, mensagem: mensagem}).done(back => {
+    $.post('registrarLead.php', {nome: nome, email: email, telefone: telefone, estado: estado, cidade: cidade, mensagem: mensagem}).done(back => {
         console.log(back)
     })
 
