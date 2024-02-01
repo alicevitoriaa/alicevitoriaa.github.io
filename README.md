@@ -12,7 +12,7 @@ Siga as instruções abaixo para visualizar o site localmente.
       cd C:\xampp\htdocs
     ```
 
-1. Dentro de "htdocs", clone este repositório em seu computador:
+3. Dentro de "htdocs", clone este repositório em seu computador:
 
     ```bash
       git clone https://github.com/alicevitoriaa/alicevitoriaa.github.io.git
@@ -30,17 +30,15 @@ Siga as instruções abaixo para visualizar o site localmente.
 
 7. Dentro do banco "leads", crie uma tabela "usuarios" com as seguintes colunas:
 
-      +----------+--------------+------+-----+---------+----------------+
-    | Field    | Type         | Null | Key | Default | Extra          |
-    +----------+--------------+------+-----+---------+----------------+
-    | id       | int          | NO   | PRI | NULL    | auto_increment |
-    | nome     | varchar(255) | YES  |     | NULL    |                |
-    | email    | varchar(255) | YES  |     | NULL    |                |
-    | telefone | varchar(20)  | YES  |     | NULL    |                |
-    | estado   | varchar(100) | YES  |     | NULL    |                |
-    | cidade   | varchar(100) | YES  |     | NULL    |                |
-    | mensagem | text         | YES  |     | NULL    |                |
-    +----------+--------------+------+-----+---------+----------------+
+   | Field    | Type         | Null | Key | Default | Extra          |
+   |----------|--------------|------|-----|---------|----------------|
+   | id       | int          | NO   | PRI | NULL    | auto_increment |
+   | nome     | varchar(255) | YES  |     | NULL    |                |
+   | email    | varchar(255) | YES  |     | NULL    |                |
+   | telefone | varchar(20)  | YES  |     | NULL    |                |
+   | estado   | varchar(100) | YES  |     | NULL    |                |
+   | cidade   | varchar(100) | YES  |     | NULL    |                |
+   | mensagem | text         | YES  |     | NULL    |                |
 
 
 8. Logo após a criação da tabela "usuarios", abra o arquivo `index.html` em seu navegador.
