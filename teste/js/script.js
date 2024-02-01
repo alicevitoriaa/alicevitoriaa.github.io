@@ -152,7 +152,7 @@ function criarLead() {
 
 function comodos() {
 
-    fetch("https://alicevitoriaa.github.io/teste/api/comodosFotos.php'", {
+    fetch("https://alicevitoriaa.github.io/teste/api/comodosFotos.php", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
