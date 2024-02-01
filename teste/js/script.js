@@ -152,7 +152,22 @@ function criarLead() {
 
 function comodos() {
 
-    $.get('api/comodosFotos.php').done(galeria => {
+    fetch("https://alicevitoriaa.github.io/teste/api/comodosFotos.php'", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(async res => {
+        if (!res.ok) {
+            console.log(res.status);
+            throw new Error(`Erro na requisição: ${res.status}`);
+        }
+
+        return res.json();
+    })
+
+    $.get('https://alicevitoriaa.github.io/teste/api/comodosFotos.php').done(galeria => {
 
         for (var i = 0; i < 2; i++) {
 
