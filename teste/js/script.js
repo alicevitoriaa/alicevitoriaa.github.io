@@ -3,7 +3,7 @@
 $( document ).ready(function() {
     carregarEstados()
     comodos()
-    getAPI()
+    get()
 });
 
 function carregarEstados(){
@@ -200,12 +200,26 @@ function aviso(tipo, mensagem){
 
 }
 
-function getAPI(){
-    fetch("https://api.github.com/users/alicevitoriaa/repos").then(async res => {
-        if(!res.ok){
-            console.log(res.status)
+function get() {
+    fetch("https://alicevitoriaa.github.io/teste/api/registrarLead.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(async res => {
+        if (!res.ok) {
+            console.log(res.status);
+            throw new Error(`Erro na requisição: ${res.status}`);
         }
 
-        console.log(res.json())
+        return res.json();
     })
+    .then(responseData => {
+        console.log(responseData);
+        // Faça o que precisa fazer com os dados da resposta aqui
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
