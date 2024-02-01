@@ -82,18 +82,16 @@ img { object-fit: cover; mix-blend-mode: multiply }
 
 input{ border-radius: 5px!important }
 
-input:focus { box-shadow: none!important; }
+input:focus, select { box-shadow: none!important; }
 
-label, option { font-size: 13px; margin: 0 calc(var(--bs-gutter-x) * .5); }
+label { font-size: 13px; margin: 0 calc(var(--bs-gutter-x) * .5); }
 
 .form-floating > label { display: flex; align-items: center;  }
 
-.btnE {
+.btnE, .btnCad {
 
     background: var(--cor-botao)!important;
-    opacity: 0.5;
     width: 100%;
-    cursor: no-drop;
     border: none!important;
     padding: 1rem!important;
 
@@ -151,3 +149,84 @@ label, option { font-size: 13px; margin: 0 calc(var(--bs-gutter-x) * .5); }
 .plant:hover, .p:hover { width: 300px; }
 
 .plant, .p { transition: all 0.3s ease; cursor: pointer; }
+
+
+@media only screen and (max-width: 768px) {
+
+    body {
+        font-size: 14px;
+        text-align: center!important;
+    }
+
+    /* Modifique o tamanho da imagem do cabeçalho */
+    #head img {
+        width: 150px;
+    }
+
+    /* Modifique o tamanho da imagem das plantas */
+    .plant .zoomD {
+        font-size: 18px;
+    }
+
+    /* Ajuste o tamanho do texto nas vantagens */
+    #bannerV div {
+        font-size: 14px;
+    }
+
+    #bannerV{ width: 100%; }
+
+    #comodos, #estrutura, #planta, .paisagemtext, .rowMap { padding: 50px 65px!important; }
+
+    .figure{ margin-top: 20px!important; }
+
+    .fig{ width: 188px; }
+
+    .btnPlant, .btnMap, .btnEE { margin-top: 40px!important; width: 100%!important; }
+
+    #textRota, .tRota { padding: 50px 65px!important; }
+
+    .tRota > div { margin: 0!important; }
+
+    .rowRota{ margin-top: 0!important; }
+
+    .rowRota > .figure{ margin-top: 0!important; padding: 0 64px!important; }
+
+    .btnMap { margin: 0!important; padding: 10px 64px 50px 64px; }
+
+    .rodape { padding-bottom: 30px!important; }
+
+    #boasVindas { padding: 50px 65px; width: 100%; text-align: center; }
+
+    .formulario { position: sticky; display: none!important;}
+
+    #p1 { height: auto !important }
+
+    .btnCad { cursor: pointer!important; opacity: 1; }
+   
+    .btnCadD {  display: flex!important; width: 100%!important; padding: 70px 64px; }
+
+    .figure-caption { font-size: 16px!important; }
+
+    #footer { position: relative!important; }
+
+    #footer > div > div > div{ flex-direction: column; width: 100%; align-items: center; }
+
+    #footer > div > div { flex-direction: column; }
+
+    #nomeCd { justify-content: center!important; padding: 2.5rem 1rem!important; }
+
+    #divRedes { padding-bottom: 2.5rem; }
+
+    #btnWtt { justify-content: center; }
+
+    div:where(.swal2-container) div:where(.swal2-popup){ background: var(--verde-escuro)!important; padding: 0!important; }
+
+    div:where(.swal2-container) { padding: 30px !important; overflow-y: hidden!important; display: flex; }
+
+    div:where(.swal2-container) .swal2-html-container{ display: grid!important; gap: 15px; margin: 28px!important; }
+
+    .ess, .cdd, .btnRR { width: 100%!important; }
+
+    div:where(.swal2-container).swal2-center>.swal2-popup { max-height: 60%; overflow: auto; }
+
+}

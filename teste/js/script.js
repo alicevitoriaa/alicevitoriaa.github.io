@@ -3,6 +3,7 @@
 $( document ).ready(function() {
     carregarEstados()
     comodos()
+    getAPI()
 });
 
 function carregarEstados(){
@@ -118,49 +119,93 @@ function carregarCidades(estadoSelecionado){
 function criarLead() {
 
     var nome = $('#nome').val()
-    var email = $('email').val()
-    var telefone = $('telefone').val()
-    var estado = $('es').val()
-    var cidade = $('cd').val()
+    var email = $('#email').val()
+    var telefone = $('#telefone').val()
+    var estado = $('#es').val()
+    var cidade = $('#cd').val()
     var mensagem = $('#mensagem').val()
 
-    $.post('registrarLead.php', {nome: nome, email: email, telefone: telefone, estado: estado, cidade: cidade, mensagem: mensagem}).done(back => {
-        console.log(back)
-    })
+    if(nome && email && telefone && estado && cidade && mensagem) {
+
+        $.post("api/registrarLead.php", {nome: nome, email: email, telefone: telefone, estado: estado, cidade: cidade, mensagem: mensagem}).done(back => {
+            console.log(back)
+            if(!back.includes("erro")){
+
+                aviso('success', 'Dados salvos com sucesso!'); 
+
+            }else{
+
+                aviso('danger', 'Preencha todos os campo!');
+
+            }
+
+        })
+        
+    }else{
+
+        aviso('danger', 'Preencha todos os campo!');
+
+    }
+
 
 }
 
-function comodos(){
+function comodos() {
 
     $.get('api/comodosFotos.php').done(galeria => {
-        console.log(galeria)
-        return
+
+        for (var i = 0; i < 2; i++) {
+
+            for (var j = 0; j < galeria[i].length; j++) {
+
+                $(`.pt${i}`).append(`
+                    <figure class="figure col-sm-2">
+                        <img src="imgs/${galeria[i][j]}" class="figure-img img-fluid rounded" alt="...">
+                        <figcaption style="text-align: center; color: var(--verde-escuro);" class="figure-caption">${galeria[i][j].replace(/_/g, ' ').slice(0, -4)}</figcaption>
+                    </figure>
+                `);
+            }
+            
+        }
+
+    });
+
+}
 
 
-        galeria.forEach(function (imagem) {
-            $('.pt1').append(`
-                <figure class="figure col-sm-2">
-                    <img src="imgs/${imagem}" class="figure-img img-fluid rounded" alt="...">
-                    <figcaption style="text-align: center;" class="figure-caption">${pathinfo(imagem, PATHINFO_FILENAME)}</figcaption>
-                </figure>
-            `);
-        });
+function formatarNum(el) {
+  
+    el = el.replace(/\D/g, '');
+  
+    if (el.length >= 2) {
+      el = '(' + el.substring(0, 2) + ') ' + el.substring(2);
+    }
+    
+    if (el.length > 10) {
+      el = el.substring(0, 10) + '-' + el.substring(10);
+    }
+  
+    $('#telefone').val(el);
+    
+}
 
-        $('.pt1').append(`<?php foreach ($galeria as $imagem) { ?>
-            <figure class="figure col-sm-2">
-                <img src="imgs/<?php echo $imagem; ?>" class="figure-img img-fluid rounded" alt="...">
-                <figcaption style="text-align: center;" class="figure-caption"><?php echo pathinfo($imagem, PATHINFO_FILENAME); ?></figcaption>
-            </figure>
-        <?php } ?>`)
+function aviso(tipo, mensagem){
 
-        $('.pt2').append(`<?php foreach ($galeria2 as $imagem) { ?>
-            <figure class="figure col-sm-2">
-                <img src="imgs/<?php echo $imagem; ?>" class="figure-img img-fluid rounded" alt="...">
-                <figcaption style="text-align: center;" class="figure-caption"><?php echo pathinfo($imagem, PATHINFO_FILENAME); ?></figcaption>
-            </figure>
-        <?php } ?>`)
+    $('body').append(`<div style="display: flex; width: 100%; justify-content: center"><div style="position: absolute; z-index: 99999999999; top: 0; display: none; margin: 20px" class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+        <strong>${mensagem}</strong>
+        <button onclick="$('.alert').slideUp()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div></div>`);
 
+    $('.alert').slideDown();
+
+}
+
+function getAPI(){
+    fetch("https://api.github.com/users/alicevitoriaa/repos").then(async res => {
+        if(!res.ok){
+            console.log(res.status)
+        }
+
+        console.log(res.json())
     })
-
-
 }
