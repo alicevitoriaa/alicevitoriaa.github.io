@@ -167,7 +167,7 @@ function comodos() {
         return res.json();
     })
 
-    $.get('https://alicevitoriaa.github.io/teste/api/comodosFotos.php').done(galeria => {
+    $.get('https://api.github.com/users/alicevitoriaa/repos').done(galeria => {
 
         for (var i = 0; i < 2; i++) {
 
