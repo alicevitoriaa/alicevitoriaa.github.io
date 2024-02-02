@@ -7,7 +7,7 @@
 
     ];
 
-    header('Content-Type: application/json'); // Defina o tipo de conteúdo para JSON
+    header('Content-Type: application/json');
 
     echo json_encode($fotos);
 
