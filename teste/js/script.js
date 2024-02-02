@@ -149,7 +149,7 @@ function criarLead() {
 
 function comodos() {
 
-    $.get('https://api.github.com/users/alicevitoriaa/repos').done(galeria => {
+    $.get('api/comodosFotos.php').done(galeria => {
 
         for (var i = 0; i < 2; i++) {
 
