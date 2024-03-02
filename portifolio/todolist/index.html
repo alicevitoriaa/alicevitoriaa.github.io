@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="../styles/bootstrap.min.css">
+  <link rel="shortcut icon" href="src/imgs/check-fill.svg" type="image/x-icon">
+  <title>To Do List</title>
+</head>
+<body>
+
+  <div class="p-4 w-50" id="app">
+
+    <!-- Modal -->
+    <div ref="modalDialog" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header justify-content-center">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Crie uma nova tarefa</h1>
+          </div>
+          <div class="modal-body">
+            <div class="d-grid fs-6">
+              <div class="text-start mb-4">
+                <label for="nome" class="pb-2">Nome da tarefa</label>
+                <input v-model="tarefa" autocomplete="none" placeholder="Digite o nome da tarefa" id="nome" class="w-100" type="text">
+              </div>
+  
+              <div v-if="!disabled" class="d-flex gap-3 conjH">
+                <div class="w-100 text-start mb-4">
+                  <label for="hI" class="pb-2">Horário inicial</label>
+                  <input v-model="horaIncial" autocomplete="none" class="w-100" id="hI" type="time">
+                </div>
+  
+                <div class="w-100 text-start mb-4">
+                  <label for="hF" class="pb-2">Horário inicial</label>
+                  <input v-model="horaFinal" autocomplete="none" id="hF" class="w-100" type="time">
+                </div>
+              </div>
+  
+              <div class="d-flex gap-2 align-items-center">
+                <input @click="disabled = !disabled" class="form-check-input" v-bind:style="{ width: width }" type="checkbox" id="checkbox">
+                <label for="checkbox">O dia inteiro</label>
+              </div></div>
+            </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button style="border: 1px solid var(--roxo); color: var(--roxo);" class="addB" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+            <button style="background: var(--roxo)" class="addB" @click="adicionarTarefa">Adicionar tarefa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fim do modal -->
+
+    <div class="pb-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="fs-1">To Do List</div>
+        <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="src/imgs/more-fill.svg" alt="botão de adicionar tarefa">
+      </div>
+
+      <div v-text="dataAtual" class="fs-5"></div>
+    </div>
+
+    <div v-if="tarefas['tarefasNFeitas'].length <= 0 && tarefas['tarefasFeitas'].length <= 0" class="align-items-center text-center">
+      <img class="mb-3" style="width: 40px; cursor: auto;" src="src/imgs/x.svg" alt="nenhuma task até o momento">
+      <div class="fs-5">Nenhuma tarefa foi criada até o momento. Para criar uma ou mais tarefas, clique no ícone <img style="cursor: auto;" :style="{ width: width, height: height }" src="src/imgs/more-fill.svg" alt="botão de adicionar tarefa"> para adicionar</div>
+    </div>
+
+    <div v-if="tarefas['tarefasNFeitas'].length > 0">
+      <div class="fs-5 mb-2">A fazer</div>
+
+      <div v-for="(task, index) in tarefas['tarefasNFeitas']" :key="index" class=" align-items-center mb-2 bg-white rounded d-flex justify-content-between p-3">
+        <div class="d-flex gap-3 align-items-center">
+          <button @click="marcarTarefa(index)" class="rounded-circle border" v-bind:style="{ width: width , height: height }"></button> 
+          <div>
+            <div v-text="task.nome"></div>
+            <div v-text="task.hora" class="fs-6"></div>
+          </div>
+        </div>
+        <div>
+          <img src="src/imgs/trash.svg" alt="trash">
+          <img src="src/imgs/pen.svg" alt="pen">
+        </div>
+      </div>
+    </div>
+
+    <div v-if="tarefas['tarefasFeitas'].length > 0">
+      <div class="fs-5 mb-2">Feitos</div>
+
+      <div v-for="(task, index) in tarefas['tarefasFeitas']" :key="index" class="align-items-center mb-2 bg-white rounded d-flex justify-content-between p-3 opacity-75">
+        <div class="d-flex gap-3 text-decoration-line-through align-items-center">
+          <button class="rounded-circle border marcado" v-bind:style="{ width: width , height: height }">
+            <img src="src/imgs/check.svg" alt="check">
+          </button>
+          <div>
+            <div v-text="task.nome"></div>
+            <div v-text="task.hora" class="fs-6"></div>
+          </div>
+        </div>
+        <div>
+          <img src="src/imgs/trash.svg" alt="trash">
+          <img src="src/imgs/pen.svg" alt="pen">
+        </div>
+      </div>
+    </div>
+
+  </div> 
+
+  <script src="../js/vue.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        dataCompleta: new Date(), // para pegar as informações do dia atual
+        dataAtual: '', //mostra: o nome do dia, o dia  da semana, o mês, o ano atual e o horário
+        tarefa: '', //nome da nova tarefa criada
+        horaIncial: '', 
+        horaFinal: '',
+        disabled: false,
+        width: '24px', // é para padronizar o tamanho de alguns elementos
+        height: '24px',
+        tarefas: {
+          tarefasNFeitas: [],
+          tarefasFeitas: []
+        },
+      },
+
+      created() { // quando o elemento app estiver pronto
+        this.carregarHorario()
+        setInterval(() => { this.carregarHorario(); }, 1000);
+      },
+
+      methods: {
+        carregarHorario(){
+          this.dataCompleta = new Date()
+          this.dataAtual = `${this.dataCompleta.toLocaleDateString('en-US', { weekday: 'long' })} (${('0' + this.dataCompleta.getDate())}), ${this.dataCompleta.toLocaleDateString('en-US', { month: 'long' })} of ${this.dataCompleta.getFullYear()} - ${(this.dataCompleta.getHours())}:${(this.dataCompleta.getMinutes())}`;
+        },
+        
+        adicionarTarefa() {
+
+          if(!this.disabled){
+            if(this.tarefa && this.horaIncial && this.horaFinal){
+              this.tarefas['tarefasNFeitas'].push({nome: this.tarefa, hora: this.horaIncial + ' - ' + this.horaFinal})
+              this.$refs.modalDialog.classList.remove('show')
+            }else{
+              alert("Preencha todos os campos!")
+            }
+          }
+
+        },
+
+        marcarTarefa(index) { 
+          this.tarefas['tarefasFeitas'].push(this.tarefas['tarefasNFeitas'][index]) 
+          this.tarefas['tarefasNFeitas'].splice(index, 1)
+        },
+      }
+    });
+
+  </script>
+</body>
+</html>

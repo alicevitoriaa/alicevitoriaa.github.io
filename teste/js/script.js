@@ -1,9 +1,6 @@
-// array de estados
-
 $( document ).ready(function() {
     carregarEstados()
     comodos()
-    get()
 });
 
 function carregarEstados(){
@@ -152,22 +149,7 @@ function criarLead() {
 
 function comodos() {
 
-    fetch("https://alicevitoriaa.github.io/teste/api/comodosFotos.php", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(async res => {
-        if (!res.ok) {
-            console.log(res.status);
-            throw new Error(`Erro na requisição: ${res.status}`);
-        }
-
-        return res.json();
-    })
-
-    $.get('https://api.github.com/users/alicevitoriaa/repos').done(galeria => {
+    $.get('api/comodosFotos.php').done(galeria => {
 
         for (var i = 0; i < 2; i++) {
 
@@ -213,28 +195,4 @@ function aviso(tipo, mensagem){
 
     $('.alert').slideDown();
 
-}
-
-function get() {
-    fetch("https://alicevitoriaa.github.io/teste/api/registrarLead.php", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(async res => {
-        if (!res.ok) {
-            console.log(res.status);
-            throw new Error(`Erro na requisição: ${res.status}`);
-        }
-
-        return res.json();
-    })
-    .then(responseData => {
-        console.log(responseData);
-        // Faça o que precisa fazer com os dados da resposta aqui
-    })
-    .catch(error => {
-        console.error(error);
-    });
 }

@@ -1,0 +1,98 @@
+@font-face {
+  font-family: 'Josefin Sans Regular';
+  src: url('../../static/JosefinSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans Bold';
+  src: url('../../static/JosefinSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root{
+  --roxo: #9900f7;
+  --br: 30px;
+  --padding: 10px 20px;
+  --preto: #000;
+  --branco: #fff
+}
+
+body {
+  font-family: 'Josefin Sans Regular';
+  user-select: none;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('imgs/fundo.jpg');
+  background-position: center;
+}
+  
+li {
+  margin-bottom: 5px;
+}
+  
+button {
+  border: none;
+}
+
+.addB{
+  border-radius: var(--br);
+  padding: var(--padding);
+  color: var(--branco);
+  width: 48%;
+}
+
+.marcado{
+  background: var(--roxo); 
+  display: flex;
+  justify-content: center; 
+  padding: 0;
+}
+
+input{
+  border: 0.5px solid;
+  border-radius: var(--br);
+  padding: var(--padding);
+}
+
+input:focus{ box-shadow: none!important; }
+
+img { cursor: pointer; }
+
+input[type=checkbox]{
+  border: 1px solid var(--roxo)!important;
+  border-radius: var(--br)!important;
+  margin-top: 0!important;
+  padding: 10px!important;
+}
+
+label[for=checkbox], #checkbox{ cursor: pointer }
+
+.form-check-input:checked[type=checkbox]{
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e")!important;
+}
+
+.form-check-input:checked {
+  background: var(--roxo)!important;
+}
+
+.swal2-html-container{
+  margin: 30px!important;
+  padding: 0!important;
+  font-family: 'Josefin Sans Regular';
+  color: var(--preto);
+}
+
+.fs-1{ font-family: 'Josefin Sans Bold'; }
+
+button:disable, .disabled{
+  opacity: 0.5;
+  cursor: no-drop;
+}
