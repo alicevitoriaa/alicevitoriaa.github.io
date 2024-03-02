@@ -195,4 +195,8 @@ function aviso(tipo, mensagem){
 
     $('.alert').slideDown();
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5eb44935f1bbe3825e3a34d6be21b906644c0b2e

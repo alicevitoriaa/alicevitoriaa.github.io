@@ -6,7 +6,13 @@
         1 => ["Ateliê.jpg", "Sala_de_jogos.jpg", "Brinquedoteca.jpg", "Piscina.jpg", "Coworking.jpg"]
 
     ];
+<<<<<<< HEAD
     
+=======
+
+    header('Content-Type: application/json');
+
+>>>>>>> 5eb44935f1bbe3825e3a34d6be21b906644c0b2e
     echo json_encode($fotos);
 
 ?>
