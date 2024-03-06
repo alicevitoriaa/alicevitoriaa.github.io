@@ -155,6 +155,8 @@ i { font-size: 25px }
 
 .imgExpo{ filter: brightness(0) invert(1); width: 20px; }
 
+.inverLyric { mix-blend-mode: lighten; filter: invert(1) grayscale(100%) contrast(3.3) }
+
 #texto:after{ content: ' |'; animation: pisca .7s infinite }
 
 @keyframes pisca{
