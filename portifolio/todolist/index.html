@@ -3,79 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="src/style.css">
   <link rel="stylesheet" href="../styles/bootstrap.min.css">
   <link rel="shortcut icon" href="src/imgs/check-fill.svg" type="image/x-icon">
   <title>To Do List</title>
 </head>
+
 <body>
 
-  <div class="p-4 w-50" id="app">
+  <style>
+    @font-face {
+      font-family: 'Josefin Sans Regular';
+      src: url('../static/JosefinSans-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-    <!-- Modal -->
-    <div ref="modalDialog" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header justify-content-center">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Crie uma nova tarefa</h1>
-          </div>
-          <div class="modal-body">
-            <div class="d-grid fs-6">
-              <div class="text-start mb-4">
-                <label for="nome" class="pb-2">Nome da tarefa</label>
-                <input v-model="tarefa" autocomplete="none" placeholder="Digite o nome da tarefa" id="nome" class="w-100" type="text">
-              </div>
-  
-              <div v-if="!disabled" class="d-flex gap-3 conjH">
-                <div class="w-100 text-start mb-4">
-                  <label for="hI" class="pb-2">Horário inicial</label>
-                  <input v-model="horaIncial" autocomplete="none" class="w-100" id="hI" type="time">
-                </div>
-  
-                <div class="w-100 text-start mb-4">
-                  <label for="hF" class="pb-2">Horário inicial</label>
-                  <input v-model="horaFinal" autocomplete="none" id="hF" class="w-100" type="time">
-                </div>
-              </div>
-  
-              <div class="d-flex gap-2 align-items-center">
-                <input @click="disabled = !disabled" class="form-check-input" v-bind:style="{ width: width }" type="checkbox" id="checkbox">
-                <label for="checkbox">O dia inteiro</label>
-              </div></div>
+    @font-face {
+      font-family: 'Josefin Sans Bold';
+      src: url('../static/JosefinSans-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    :root{
+      --azul: #2900f7;
+      --br: 30px;
+      --padding: 10px 20px;
+      --preto: #000;
+      --branco: #fff
+    }
+
+    body {
+      font-family: 'Josefin Sans Regular';
+      user-select: none;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      margin: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('src/imgs/fundo.jpg');
+      background-position: center;
+    }
+
+    #app::-webkit-scrollbar { width: 5px; background: transparent; opacity:0.5; }
+
+    #app::-webkit-scrollbar-thumb { background: var(--branco); border-radius: 20px }
+
+    html { scroll-behavior: smooth }
+      
+    li { margin-bottom: 5px }
+      
+    button { border: none }
+
+    .addB{
+      border-radius: var(--br);
+      padding: var(--padding);
+      color: var(--branco);
+      width: 48%;
+    }
+
+    .marcado{
+      background: var(--azul); 
+      display: flex;
+      justify-content: center; 
+      padding: 0;
+    }
+
+    input{
+      border: 0.5px solid;
+      border-radius: var(--br);
+      padding: var(--padding);
+    }
+
+    input:focus{ box-shadow: none!important; }
+
+    img { cursor: pointer; }
+
+    input[type=checkbox]{
+      border: 1px solid var(--azul)!important;
+      border-radius: var(--br)!important;
+      margin-top: 0!important;
+      padding: 10px!important;
+    }
+
+    label[for=checkbox], #checkbox{ cursor: pointer }
+
+    .form-check-input:checked[type=checkbox]{
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e")!important;
+    }
+
+    .form-check-input:checked { background: var(--azul)!important }
+
+    .fs-1{ font-family: 'Josefin Sans Bold'; }
+
+    button:disable, .disabled{
+      opacity: 0.5;
+      cursor: no-drop;
+    }
+
+    .modal-mask {
+      position: fixed;
+      z-index: 9998;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: table;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .modal-container {
+      width: 50%;
+      margin: 0px auto;
+      padding: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      transition: all 0.3s ease;
+      border-radius: var(--br);
+    }
+
+    .modal-enter .modal-container,
+    .modal-leave-active .modal-container {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+    #app{
+      max-height: 100%;
+      overflow: auto;
+    }
+
+  </style>
+
+  <div class="p-4 w-50" id="app">
+    <transition v-if="showModal" @close="showModal = false" name="modal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header fs-2 justify-content-center mb-4" style="font-family: 'Josefin Sans Bold';">
+              Criar tarefa
             </div>
-          <div class="modal-footer d-flex justify-content-between">
-            <button style="border: 1px solid var(--roxo); color: var(--roxo);" class="addB" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-            <button style="background: var(--roxo)" class="addB" @click="adicionarTarefa">Adicionar tarefa</button>
+
+            <div class="modal-body">
+              <slot name="body">
+                <div class="d-grid fs-6">
+                  <div class="text-start mb-4">
+                    <label for="nome" class="pb-2">Nome da tarefa</label>
+                    <input v-model="nome" autocomplete="off" placeholder="Digite o nome da tarefa" id="nome" class="w-100" type="text">
+                  </div>
+      
+                  <div v-if="!disabled" class="d-flex gap-3 conjH mb-4">
+                    <div class="w-100 text-start">
+                      <label for="hI" class="pb-2">Horário inicial</label>
+                      <input v-model="horaInicial" autocomplete="off" class="w-100" id="hI" type="time">
+                    </div>
+      
+                    <div class="w-100 text-start">
+                      <label for="hF" class="pb-2">Horário inicial</label>
+                      <input v-model="horaFinal" autocomplete="off" id="hF" class="w-100" type="time">
+                    </div>
+                  </div>
+      
+                  <div class="d-flex gap-2 align-items-center mb-4">
+                    <input @click="disabled = !disabled" class="form-check-input" v-bind:style="{ width: width }" type="checkbox" id="checkbox">
+                    <label for="checkbox">O dia inteiro</label>
+                  </div></div>
+                  <div class="modal-footer d-flex justify-content-between">
+                    <button style="border: 1px solid var(--azul); color: var(--azul);" class="addB" @click="showModal = false">Cancelar</button>
+                    <button style="background: var(--azul)" class="addB" @click="adicionarTarefa">Adicionar tarefa</button>
+                  </div>
+              </slot>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
 
-    <!-- Fim do modal -->
-
-    <div class="pb-5">
+    <div class="pb-3" style="border-bottom: 1px solid var(--branco);">
       <div class="d-flex justify-content-between align-items-center">
         <div class="fs-1">To Do List</div>
-        <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" src="src/imgs/more-fill.svg" alt="botão de adicionar tarefa">
+        <img @click="showModal = true" src="src/imgs/more-fill.svg" alt="botão de adicionar tarefa">
       </div>
 
       <div v-text="dataAtual" class="fs-5"></div>
     </div>
 
-    <div v-if="tarefas['tarefasNFeitas'].length <= 0 && tarefas['tarefasFeitas'].length <= 0" class="align-items-center text-center">
-      <img class="mb-3" style="width: 40px; cursor: auto;" src="src/imgs/x.svg" alt="nenhuma task até o momento">
+    <div v-if="tarefas['tarefasNFeitas'].length <= 0 && tarefas['tarefasFeitas'].length <= 0" class="text-center opacity-75 pt-3">
       <div class="fs-5">Nenhuma tarefa foi criada até o momento. Para criar uma ou mais tarefas, clique no ícone <img style="cursor: auto;" :style="{ width: width, height: height }" src="src/imgs/more-fill.svg" alt="botão de adicionar tarefa"> para adicionar</div>
     </div>
 
-    <div v-if="tarefas['tarefasNFeitas'].length > 0">
-      <div class="fs-5 mb-2">A fazer</div>
+    <div v-if="tarefas['tarefasNFeitas'].length > 0" class="pt-3">
+      <div class="fs-5 mb-2" style="font-family: 'Josefin Sans Bold'">A fazer</div>
 
       <div v-for="(task, index) in tarefas['tarefasNFeitas']" :key="index" class=" align-items-center mb-2 bg-white rounded d-flex justify-content-between p-3">
         <div class="d-flex gap-3 align-items-center">
           <button @click="marcarTarefa(index)" class="rounded-circle border" v-bind:style="{ width: width , height: height }"></button> 
           <div>
             <div v-text="task.nome"></div>
-            <div v-text="task.hora" class="fs-6"></div>
+            <div v-text="task.horario" class="fs-6"></div>
           </div>
         </div>
         <div>
@@ -85,17 +218,17 @@
       </div>
     </div>
 
-    <div v-if="tarefas['tarefasFeitas'].length > 0">
-      <div class="fs-5 mb-2">Feitos</div>
+    <div v-if="tarefas['tarefasFeitas'].length > 0" class="pt-3">
+      <div class="fs-5 mb-2" style="font-family: 'Josefin Sans Bold'">Feitos</div>
 
       <div v-for="(task, index) in tarefas['tarefasFeitas']" :key="index" class="align-items-center mb-2 bg-white rounded d-flex justify-content-between p-3 opacity-75">
         <div class="d-flex gap-3 text-decoration-line-through align-items-center">
-          <button class="rounded-circle border marcado" v-bind:style="{ width: width , height: height }">
+          <button @click="desmarcarTarefa(index)" class="rounded-circle border marcado" v-bind:style="{ width: width , height: height }">
             <img src="src/imgs/check.svg" alt="check">
           </button>
           <div>
             <div v-text="task.nome"></div>
-            <div v-text="task.hora" class="fs-6"></div>
+            <div v-text="task.horario" class="fs-6"></div>
           </div>
         </div>
         <div>
@@ -117,9 +250,10 @@
       data: {
         dataCompleta: new Date(), // para pegar as informações do dia atual
         dataAtual: '', //mostra: o nome do dia, o dia  da semana, o mês, o ano atual e o horário
-        tarefa: '', //nome da nova tarefa criada
-        horaIncial: '', 
+        nome: '', //nome da nova tarefa criada
+        horaInicial: '', 
         horaFinal: '',
+        showModal: false,
         disabled: false,
         width: '24px', // é para padronizar o tamanho de alguns elementos
         height: '24px',
@@ -129,34 +263,58 @@
         },
       },
 
-      created() { // quando o elemento app estiver pronto
-        this.carregarHorario()
-        setInterval(() => { this.carregarHorario(); }, 1000);
+      created() { 
+        this.carregarHorario() //chamar a funcão
+        setInterval(() => { this.carregarHorario(); }, 1000); //manter atualizado a casa segundo
       },
 
       methods: {
         carregarHorario(){
           this.dataCompleta = new Date()
-          this.dataAtual = `${this.dataCompleta.toLocaleDateString('en-US', { weekday: 'long' })} (${('0' + this.dataCompleta.getDate())}), ${this.dataCompleta.toLocaleDateString('en-US', { month: 'long' })} of ${this.dataCompleta.getFullYear()} - ${(this.dataCompleta.getHours())}:${(this.dataCompleta.getMinutes())}`;
+          this.dataAtual = `${this.dataCompleta.toLocaleDateString('en-US', { weekday: 'long' })} (${('0' + this.dataCompleta.getDate())}), ${this.dataCompleta.toLocaleDateString('en-US', { month: 'long' })} of ${this.dataCompleta.getFullYear()}`;
         },
         
         adicionarTarefa() {
 
           if(!this.disabled){
-            if(this.tarefa && this.horaIncial && this.horaFinal){
-              this.tarefas['tarefasNFeitas'].push({nome: this.tarefa, hora: this.horaIncial + ' - ' + this.horaFinal})
-              this.$refs.modalDialog.classList.remove('show')
+
+            if(this.nome && this.horaInicial && this.horaFinal){
+              this.tarefas.tarefasNFeitas.push({ nome: this.nome, horario: this.horaInicial + ' - ' + this.horaFinal });
+              this.showModal = false
+              this.nome = ''
+              this.horaInicial = ''
+              this.horaFinal = ''
+              this.disabled = false
+              alert("Tarefa criada com sucesso!")
             }else{
               alert("Preencha todos os campos!")
             }
-          }
 
+          }else{
+
+            if(this.nome){
+
+              this.tarefas.tarefasNFeitas.push({ nome: this.nome, horario: '' })
+              this.showModal = false
+              this.nome = ''
+              this.disabled = false
+              alert("Tarefa criada com sucesso!")
+            }else{
+              alert("Preencha o campo nome!")
+            }
+          }
         },
 
         marcarTarefa(index) { 
           this.tarefas['tarefasFeitas'].push(this.tarefas['tarefasNFeitas'][index]) 
           this.tarefas['tarefasNFeitas'].splice(index, 1)
         },
+
+        desmarcarTarefa(index) { 
+          this.tarefas['tarefasNFeitas'].push(this.tarefas['tarefasFeitas'][index]) 
+          this.tarefas['tarefasFeitas'].splice(index, 1)
+        },
+
       }
     });
 

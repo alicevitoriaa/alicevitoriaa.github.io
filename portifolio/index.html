@@ -11,7 +11,8 @@
       <link rel="stylesheet" href="styles/bootstrap.min.css">
       <link rel="stylesheet" href="styles/style.css">
       <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet">
-
+      <link rel="shortcut icon" href="imgs/logoMini.png" type="image/x-icon">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
       <title>Alice Vitória - portifólio</title>
 
     </head>
@@ -22,102 +23,128 @@
 
         <div style="box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px; border-radius: 0 0 50px 50px;" id="home">
   
-          <div class="d-grid align-items-center border-bottom" style="grid-template-columns: 1fr 1fr 1fr; padding: 20px 55px;">
-
-            <div class="bg-dark text-white rounded-circle text-center" style="width: 24px;">A</div>
-
-            <div class="d-flex gap-4 justify-content-center">
-              <a class="top" href="#home">home</a>
-              <a class="top" href="#tecnologias">tecnologias</a>
-              <a class="top" href="#projetos">projetos</a>
-            </div>
-
-            <div style="display: flex; gap: 20px; justify-content: end;">
-              <i style="font-size: 25px;" class="top ion-ios-mail" onclick="copiar('alice.vitori64@gmail.com')"></i>
-              <i style="font-size: 25px;" class="top ion-logo-linkedin" onclick="window.open('https://www.linkedin.com/in/alice-vit%C3%B3ria-5245a22a4/')"></i>
-              <i style="font-size: 25px;" class="top ion-logo-github" onclick="window.open('https://github.com/alicevitoriaa')"></i>
-            </div>
-
-          </div>
-              
-          <div class="fs-1 d-flex gap-2 justify-content-center align-items-center pt-5">Hi! I'm Alice Vitória</div>
-
-          <div class="row row-cols-3 flex-wrap align-items-center" style="padding: 0 55px;">
-
-            <div class="col">
-              
-              <div class="fs-1 d-flex align-items-center"><div><</div> Desenvolper <div>></div></div>
-              <div class="fs-5">Sou desenvolvedora front-end comprometida em escrever código limpo, elegante e eficiente</div>
-
-            </div>
-
-            <div class="col">
-
-                <img style="width: 100%" src="imgs/alice.svg" alt="avatar da alice">
-
-            </div>
+          <nav aria-label="Offcanvas navbar large" class="navbar navbar-expand-lg row align-items-center border-bottom" id="head">
+            <div class="col-5" style="font-family: 'Josefin Sans Bold'">AV</div>
             
-            <div class="col text-end">
+            <button class="navbar-toggler col-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex justify-content-between offcanvas offcanvas-end col" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title fs-3" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
               
-              <div class="fs-1">Web and Mobile</div>
-              <div class="fs-5">Com experiência em desenvolvimento web e mobile, estou sempre buscando atender às necessidades dos usuários</div>
+              <div id="topHead" class="d-flex flex-wrap justify-content-center gap-4">
+                <a class="top" href="#home">home</a>
+                <a class="top" href="#sobreMim">sobre mim</a>
+                <a class="top" href="#tecnologias">tecnologias</a>
+                <a class="top" href="#projetos">projetos</a>
+              </div>
+  
+              <div id="biHead" class="d-flex justify-content-end gap-3">
+                <a href="mailto:alice.vitori64@gmail.com"><i class="top bi bi-envelope" style="font-size: 20px;"></i></a>
+                <i class="top bi bi-linkedin" style="font-size: 20px;" onclick="window.open('https://www.linkedin.com/in/alice-vit%C3%B3ria-5245a22a4/')"></i>
+                <i class="top bi bi-github" style="font-size: 20px;" onclick="window.open('https://github.com/alicevitoriaa')"></i>
+                <i class="top bi bi-whatsapp" style="font-size: 20px;" onclick="window.open('https://wa.me/21966571141/? text=Olá, vim pelo seu portifólio')"></i>
+              </div>
 
             </div>
 
+          </nav>
+
+          <div class="d-flex flex-wrap-reverse align-items-center justify-content-between gap-4" style="padding: 75px 60px 0 60px;">
+  
+            <div>
+              <div class="fs-1">Olá, eu sou a <br> Alice Vitória :)</div>
+              <div class="fs-5" id="texto">Desenvolvedora Front-end</div>
+              <button onclick="window.open('currículo - Alice Vitória de Souza Ferreira.pdf')">Visualizar cv</button>
+              <a href="mailto:alice.vitori64@gmail.com"><button class="botaoSec">Entrar com contato</button></a>
+            </div>
+
+            <div class="justify-content-center d-flex">
+              <i class="bi bi-headphones animate"></i>
+              <i class="bi bi-dpad animate"></i>
+              <i class="bi bi-braces animate"></i>
+              <i class="bi bi-keyboard animate"></i>
+              <img src="imgs/alice.svg" alt="avatar da alice" id="avatar">
+            </div>
+  
           </div>
   
         </div>
 
-        <div class="d-grid justify-content-center text-center" style="box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px; padding: 55px" id="tecnologias">
+        <div id="sobreMim">
+
+          <div class="fs-1 mb-3">Sobre mim</div>
+
+          <div class="fs-5">Profissional de Desenvolvimento Front-end baseada no Rio de Janeiro, com habilidades sólidas em HTML, CSS, JavaScript, PHP e JQuery. Com formação em Informática, busco constantemente aprimorar minha expertise técnica e acompanhar as últimas tendências da indústria. Além disso, mantenho uma paixão pelo mundo dos games, buscando integrar meu conhecimento técnico com minha afinidade por esta área.</div>
+
+        </div>
+
+        <div id="tecnologias">
 
           <div class="fs-1 mb-2">Tecnologias</div>
-
           <div class="fs-5 mb-5">Principais tecnologias que eu trabalho</div>
 
-          <div class="d-flex flex-wrap gap-3">
+          <div class="d-flex flex-wrap gap-4 justify-content-center">
 
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/1.svg"><figcaption class="figure-caption text-center text-black">HTML 5</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/2.svg"><figcaption class="figure-caption text-center text-black">CSS 3</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/3.svg"><figcaption class="figure-caption text-center text-black">JavaScript 5</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/4.svg"><figcaption class="figure-caption text-center text-black">Vue.JS</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/5.svg"><figcaption class="figure-caption text-center text-black">React.JS</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/6.svg"><figcaption class="figure-caption text-center text-black">Flutter</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/7.svg"><figcaption class="figure-caption text-center text-black">JQuery</figcaption></figure>
-            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/8.svg"><figcaption class="figure-caption text-center text-black">Bootstrap</figcaption></figure>
-          
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/1.png"><figcaption class="figure-caption text-center text-black">HTML 5</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/2.png"><figcaption class="figure-caption text-center text-black">CSS 3</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/3.png"><figcaption class="figure-caption text-center text-black">JavaScript 5</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/4.png"><figcaption class="figure-caption text-center text-black">TypeScript</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/5.png"><figcaption class="figure-caption text-center text-black">Vue.JS</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/6.png"><figcaption class="figure-caption text-center text-black">React.JS</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/7.png"><figcaption class="figure-caption text-center text-black">Redux</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/8.png"><figcaption class="figure-caption text-center text-black">JQuery</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/9.png"><figcaption class="figure-caption text-center text-black">Bootstrap</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/10.png"><figcaption class="figure-caption text-center text-black">Sass</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/11.png"><figcaption class="figure-caption text-center text-black">Next.js</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/13.png"><figcaption class="figure-caption text-center text-black">Tailwind CSS</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/14.svg"><figcaption class="figure-caption text-center text-black">Styled components</figcaption></figure>
+            <figure class="figure align-items-center d-flex flex-column justify-content-center"><img class="figure-img img-fluid" src="imgs/12.png"><figcaption class="figure-caption text-center text-black">Figma</figcaption></figure>
+
           </div>
 
         </div>
 
-        <div style="padding: 55px; justify-content: center; box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px;" class="d-grid text-center" id="projetos">
+        <div id="projetos">
 
-          <div class="fs-1 mb-5">Projetos</div>
+          <div class="fs-1 mb-2">Projetos</div>
+          <div class="fs-5 mb-5">Todos os projetos desenvolvidos</div>
             
-          <div style="display: flex; gap: 25px;">
+          <div class="d-flex gap-3 flex-wrap">
             <div onclick="window.open('todolist/')" class="card">
-              <img class="rounded-3" style="width: 100%; height: 100%; object-fit: cover" src="https://luna1.co/f5de90.png" alt="1">
+              <img class="rounded-3 w-100 h-100" style="object-fit: cover" src="imgs/p1.png" alt="projeto 1">
               <div class="cort">
-                <div style="padding: 20px;">
+                <div class="p-4">
                   <div class="text-white" style="font-size: 22px;">To-do list</div>
-                  <div class="text-white" style="padding-top: 10px">HTML, CSS, Vue.js, JavaScript, JQuery</div>
+                  <div class="pt-1">
+                    <img class="figure-img img-fluid imgExpo" src="imgs/1.png">
+                    <img class="figure-img img-fluid imgExpo" src="imgs/2.png">
+                    <img class="figure-img img-fluid imgExpo" src="imgs/3.png">
+                    <img class="figure-img img-fluid imgExpo" src="imgs/5.png">
+                    <img class="figure-img img-fluid imgExpo" src="imgs/12.png">
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card">
-              <img class="rounded-3" style="width: 100%; height: 100%; object-fit: cover" src="https://storage.googleapis.com/meetime-blog/wp-content/uploads/2015/01/cc20be20-sites-para-vendas-online-04.jpg" alt="2">
+              <img class="rounded-3 w-100 h-100" style="object-fit: cover" src="https://storage.googleapis.com/meetime-blog/wp-content/uploads/2015/01/cc20be20-sites-para-vendas-online-04.jpg" alt="2">
               <div class="cort">
-                <div style="padding: 20px;">
+                <div class="p-4">
                   <div class="text-white" style="font-size: 22px;">Comércio</div>
-                  <div class="text-white" style="padding-top: 10px">React.js</div>
+                  <div class="text-white pt-1">React.js</div>
                 </div>
               </div>
             </div>
             <div class="card">
-              <img class="rounded-3" style="width: 100%; height: 100%; object-fit: cover" src="https://www.tubefilter.com/wp-content/uploads/2019/08/yt-thumbs.jpg" alt="3">
+              <img class="rounded-3 w-100 h-100" style="object-fit: cover" src="https://www.tubefilter.com/wp-content/uploads/2019/08/yt-thumbs.jpg" alt="3">
               <div class="cort">
-                <div style="padding: 20px;">
-                  <div class="text-white" style="font-size: 22px;">YouTube</div>
-                  <div class="text-white" style="padding-top: 10px">Flutter</div>
+                <div class="p-4">
+                  <div class="text-white" style="font-size: 22px;">YouTube clone</div>
+                  <div class="text-white pt-1">Flutter</div>
                 </div>
               </div>
             </div>
@@ -125,12 +152,13 @@
 
         </div>
 
-        <footer class="row row-cols-2 p-4 border-top">
+        <footer style="padding: 30px 60px;" class="d-flex border-top flex-wrap justify-content-around gap-4">
 
-          <div class="text-center">© 2024 - Alice Vitória</div>
+          <div id="direitos">© 2024 - Alice Vitória</div>
 
-          <div class="d-flex gap-4 justify-content-center">
+          <div class="d-flex gap-4 flex-wrap justify-content-center">
             <a class="top" href="#home">home</a>
+            <a class="top" href="#sobreMim">sobre mim</a>
             <a class="top" href="#tecnologias">tecnologias</a>
             <a class="top" href="#projetos">projetos</a>
           </div>
@@ -139,8 +167,26 @@
 
       </div>
 
-      <script src="https://cdn.lordicon.com/lordicon.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <script src="js/Jquery.js"></script>
+
+      <script>
+
+        function efeitoEscrever(elemento){
+
+          var textoArray = elemento.html().split(""); // tranforma o html do texto num array
+          elemento.html('');
+          textoArray.forEach(function(letra, i){   
+            setTimeout(function(){
+              elemento.append(letra);
+            }, 70 * i)
+          });
+
+        }
+
+        efeitoEscrever($('#texto'));
+
+      </script>
       
     </body>
 
