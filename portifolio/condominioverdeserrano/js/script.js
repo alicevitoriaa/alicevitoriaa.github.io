@@ -124,19 +124,14 @@ function criarLead() {
 
     if(nome && email && telefone && estado && cidade && mensagem) {
 
-        $.post("api/registrarLead.php", {nome: nome, email: email, telefone: telefone, estado: estado, cidade: cidade, mensagem: mensagem}).done(back => {
-            console.log(back)
-            if(!back.includes("erro")){
+        aviso('success', 'Dados salvos com sucesso!'); 
 
-                aviso('success', 'Dados salvos com sucesso!'); 
-
-            }else{
-
-                aviso('danger', 'Preencha todos os campo!');
-
-            }
-
-        })
+        $('#nome').val("") 
+        $('#email').val("") 
+        $('#telefone').val("") 
+        $('#es').val("Estado") 
+        $('#cd').val("Cidade") 
+        $('#mensagem').val("")
         
     }else{
 
@@ -149,23 +144,26 @@ function criarLead() {
 
 function comodos() {
 
-    $.get('api/comodosFotos.php').done(galeria => {
+    var fotos = {
 
-        for (var i = 0; i < 2; i++) {
+        "0": ["Bar_e_restaurante.jpg", "Casa_de_chá.jpg", "Salas_de_ioga_e_meditação.jpg", "Spa_e_massagem.jpg", "Fitness_center.jpg"],
+        "1": ["Ateliê.jpg", "Sala_de_jogos.jpg", "Brinquedoteca.jpg", "Piscina.jpg", "Coworking.jpg"]
 
-            for (var j = 0; j < galeria[i].length; j++) {
+    };
 
-                $(`.pt${i}`).append(`
-                    <figure class="figure col-sm-2">
-                        <img src="imgs/${galeria[i][j]}" class="figure-img img-fluid rounded" alt="...">
-                        <figcaption style="text-align: center; color: var(--verde-escuro);" class="figure-caption">${galeria[i][j].replace(/_/g, ' ').slice(0, -4)}</figcaption>
-                    </figure>
-                `);
-            }
-            
+    for (var i = 0; i < 2; i++) {
+
+        for (var j = 0; j < fotos[i].length; j++) {
+
+            $(`.pt${i}`).append(`
+                <figure class="figure col-sm-2">
+                    <img src="imgs/${fotos[i][j]}" class="figure-img img-fluid rounded" alt="...">
+                    <figcaption style="text-align: center; color: var(--verde-escuro);" class="figure-caption">${fotos[i][j].replace(/_/g, ' ').slice(0, -4)}</figcaption>
+                </figure>
+            `);
         }
-
-    });
+        
+    }
 
 }
 
@@ -194,9 +192,4 @@ function aviso(tipo, mensagem){
         </div></div>`);
 
     $('.alert').slideDown();
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 5eb44935f1bbe3825e3a34d6be21b906644c0b2e

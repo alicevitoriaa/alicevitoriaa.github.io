@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="tailwind.min.js"></script>
+    <title>Rizer</title>
+</head>
+
+<body class="m-0 bg-black text-white">
+    <div class="container">
+        <header class="p-5">
+            <div class="fs-1 flex text-6xl">Ri <div class="text-orange-600">Z</div> er</div>
+            <div class="flex border p-3 gap-3 rounded-full">
+                <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
+                <input class="w-full focus:outline-none" type="search" id="busca" placeholder="O que deseja comprar hoje...">
+            </div>
+            <div>
+                <img class="stroke-2 w-5 " src="imgs/perfil.svg" alt="perfil">
+                <img class="stroke-2 w-5" src="imgs/carrinho.svg" alt="carrinho">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Produtos</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+        </header>
+    
+        <main>
+            <section class="product">
+                <img class="w-40" src="https://lojavirus.fbitsstatic.net/img/p/tenis-nike-air-force-1-07-flyease-white-white-dx5883-100-74994/312644.jpg?w=1200&h=1200&v=202402191743&qs=ignore" alt="Product">
+                <h2>Nome do Produto</h2>
+                <p>Descrição do produto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, impedit?</p>
+                <span class="price">$19.99</span>
+                <button>Add to Cart</button>
+            </section>
+        </main>
+    
+        <footer>
+            <p>&copy; 2024 Loja Online. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
