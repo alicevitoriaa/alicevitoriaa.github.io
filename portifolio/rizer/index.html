@@ -7,40 +7,198 @@
     <title>Rizer</title>
 </head>
 
-<body class="m-0 bg-black text-white">
-    <div class="container">
-        <header class="p-5">
-            <div class="fs-1 flex text-6xl">Ri <div class="text-orange-600">Z</div> er</div>
-            <div class="flex border p-3 gap-3 rounded-full">
+<body class="m-0">
+    <div class="w-full h-full app">
+        <header>
+          <div class="py-5 px-20 grid grid-cols-4 gap-4">
+            <div class="fs-1 flex text-5xl">Ri <div class="text-red-600">Z</div> er</div>
+            <div class="col-span-2 flex border p-3 gap-3 rounded-full">
                 <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
-                <input class="w-full focus:outline-none" type="search" id="busca" placeholder="O que deseja comprar hoje...">
+                <input class="w-full focus:outline-none bg-transparent" type="search" id="busca" placeholder="O que deseja comprar hoje...">
             </div>
-            <div>
-                <img class="stroke-2 w-5 " src="imgs/perfil.svg" alt="perfil">
-                <img class="stroke-2 w-5" src="imgs/carrinho.svg" alt="carrinho">
+            <div class="flex justify-end gap-4">
+              <div class="relative flex">
+                <div class="absolute p-1 h-[25px] w-[25px] right-[-10px] items-center justify-center flex text-xs rounded-full bg-red-600 text-white" v-text="valCarrinho"></div>
+                <img class="stroke-2 w-8" src="imgs/carrinho.svg" alt="carrinho">
+              </div> 
+              <img class="stroke-2 w-8" src="imgs/perfil.svg" alt="perfil">
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Produtos</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </nav>
+          </div>
+
+          <div class="py-3 px-20  bg-red-600 flex gap-20 justify-center text-center">
+              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+                <img src="imgs/mouse.svg" alt="icone mouse" class="w-8">
+                Mouse
+              </a>
+              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+                <img src="imgs/keyboard.svg" alt="icone teclado" class="w-8">
+                Teclado
+              </a>
+              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+                <img src="imgs/headset.svg" alt="icone headset" class="w-8">
+                Teclado
+              </a>
+              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+                <img src="imgs/mic.svg" alt="icone mic" class="w-8">
+                Microfone
+              </a>
+          </div>
         </header>
     
         <main>
-            <section class="product">
-                <img class="w-40" src="https://lojavirus.fbitsstatic.net/img/p/tenis-nike-air-force-1-07-flyease-white-white-dx5883-100-74994/312644.jpg?w=1200&h=1200&v=202402191743&qs=ignore" alt="Product">
-                <h2>Nome do Produto</h2>
-                <p>Descrição do produto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, impedit?</p>
-                <span class="price">$19.99</span>
-                <button>Add to Cart</button>
-            </section>
+
+          <div id="default-carousel" class="py-5 px-20 relative w-full" data-carousel="slide">
+
+            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+              <div class="h-full flex">
+                <img :src="'imgs/b' + n + '.jpg'" class="w-full object-cover" :alt="n" v-for="n in 5" :key="n" :class="{ 'hidden': index != n }">
+              </div>
+              
+              <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                <button v-for="n in 5" :key="n" type="button" class="w-3 h-3 rounded-full bg-gray-800" :class="[ index == n ? 'bg-red-600' : 'bg-gray-800' ]" @click="index += n"></button>
+              </div>
+              
+              <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 group" @click="anteriorSlide">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                  </svg>
+                </span>
+              </button>
+              <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 group" @click="proximoSlide">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="py-5 px-20" id="lancamentos">
+            <div class="text-2xl border-4 border-transparent border-b-red-600 pb-2 mb-2">Lançamentos</div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid border-2 
+              border-gray-100 p-4 m-4 rounded-lg" @mouseover="l.favorito = true"  
+              @mouseleave="l.favorito = false" v-for="(l, index) in produtos.lancamentos" :key="index + 1">
+                <div class="relative">
+                  <img class="w-full" :src="'imgs/l' + (index + 1) + '.jpg'">
+                  <img src="imgs/coracao.svg" alt="favorito" class="absolute top-0 w-6 right-0" :class="[ l.favorito == false ? 'opacity-0' : 'opacity-100' ]">
+                </div> 
+                <div class="mb-3 mt-3 font-semibold">{{ l.nome }}</div>
+                <div>
+                  <span class="text-red-600 font-bold">R$ {{ l.preco.toString().replace('.', ',') }}</span>
+                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até <div class="text-red-600 font-semibold"> 12x </div> de <div class="text-red-600 font-semibold"> {{ (l.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
+                  <button class="bg-red-600 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="valCarrinho++"><img class="w-6" src="imgs/carrinhob.svg" alt=""> Adicionar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="py-5 px-20" id="maisVendidos">
+            <div class="text-2xl border-4 border-transparent border-b-red-600 pb-2 mb-2">Mais vendidos</div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid 
+              border-2 border-gray-100 p-4 m-4 rounded-lg" @mouseover="mv.favorito = true"  
+              @mouseleave="mv.favorito = false" v-for="(mv, index) in produtos.maisVendidos" :key="index">
+                <div class="relative">
+                  <img class="w-full" :src="'imgs/mv' + (index + 1) + '.jpg'" :alt="n">
+                  <img src="imgs/coracao.svg" alt="favorito" class="absolute top-0 w-6 right-0" :class="[ mv.favorito == false ? 'opacity-0' : 'opacity-100' ]">
+                </div> 
+                <div class="mb-3 mt-3 font-semibold">{{ mv.nome }}</div>
+                <div>
+                  <span class="text-red-600 font-bold">R$ {{ mv.preco.toString().replace('.', ',') }}</span>
+                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até <div class="text-red-600 font-semibold"> 12x </div> de <div class="text-red-600 font-semibold"> {{ (mv.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
+                  <button class="bg-red-600 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="valCarrinho++"><img class="w-6" src="imgs/carrinhoB.svg" alt=""> Adicionar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="py-5 px-20" id="destques">
+            <div class="text-2xl border-4 border-transparent border-b-red-600 pb-2 mb-2">Destaques</div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid 
+              border-2 border-gray-100 p-4 m-4 rounded-lg" @mouseover="d.favorito = true"  
+              @mouseleave="d.favorito = false" v-for="(d, index) in produtos.destques" :key="index">
+                <div class="relative">
+                  <img class="w-full" :src="'imgs/d' + (index + 1) + '.jpg'">
+                  <img src="imgs/coracao.svg" alt="favorito" class="absolute top-0 w-6 right-0" :class="[ d.favorito == false ? 'opacity-0' : 'opacity-100' ]">
+                </div> 
+                <div class="mb-3 mt-3 font-semibold">{{ d.nome }}</div>
+                <div>
+                  <span class="text-red-600 font-bold">R$ {{ d.preco.toString().replace('.', ',') }}</span>
+                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">até <div class="text-red-600 font-semibold"> 12x </div> de <div class="text-red-600 font-semibold"> {{ (d.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
+                  <button class="bg-red-600 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="valCarrinho++"><img class="w-6" src="imgs/carrinhoB.svg"> Adicionar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </main>
     
-        <footer>
-            <p>&copy; 2024 Loja Online. Todos os direitos reservados.</p>
+        <footer class="grid grid-cols-2 bg-gray-100 text-center py-5 px-20">
+            <p>&copy; 2024 Rizer</p>
+            <div class="flex gap-3 justify-center text-bold">
+              <a class="hover:text-red-600 transition ease-in-out delay-100" href="#">Mouse</a>
+              <a class="hover:text-red-600 transition ease-in-out delay-100" href="#">Teclado</a>
+              <a class="hover:text-red-600 transition ease-in-out delay-100" href="#">Headset</a>
+              <a class="hover:text-red-600 transition ease-in-out delay-100" href="#">Microfone</a>
+            </div>
         </footer>
     </div>
+
+  <script src="../js/vue.js"></script>
+
+    <script>
+
+      new Vue({
+        el: '.app',
+        data: { 
+          index: 1,
+          valCarrinho: 0,
+          produtos: {
+            lancamentos: [
+              { nome: 'Teclado Mecânico Gamer Mancer Ghoul MK2, RGB, ABNT2', preco: 286.45 , favorito: false },
+              { nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82 , favorito: false },
+              { nome: 'Teclado Mecânico Gamer Mancer Onyx MK2, RGB, ABNT2', preco: 313.33 , favorito: false },
+              { nome: 'Headset Gamer Mancer Ameth Purple Edition', preco: 247.05 , favorito: false }
+            ],
+            maisVendidos:[
+              { nome: 'Headset Gamer Mancer Twilight Rainbow', preco: 176.35, favorito: false },
+              { nome: 'Mouse Gamer Mancer Lead 2, RGB, 12400DPI, 7 Botões, Preto, MCR-LEAM2-RGB01', preco: 94.11, favorito: false },
+              { nome: 'Microfone Mancer Horcrux PFT, RGB, USB, Preto, MCR-HCRPFT-BL01', preco: 305.77, favorito: false },
+              { nome: 'Mousepad Gamer Mancer Dark Scroll, RGB, Grande, 800X300X3mm, MCR-DSR-RGBGR01', preco: 117.64, favorito: false }
+            ],
+            destques:[
+              { nome: 'Base Para Notebook Mancer Kadmus, até 17 POL, Preto, MCR-KDMS-BL01', preco: 141.16, favorito: false },
+              { nome: 'Caixa De Som Mancer Airon, Rainbow, 8W rms, Preto, MCR-ARN-RBW01', preco: 152.82, favorito: false },
+              { nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82 , favorito: false },
+              { nome: 'Water Cooler Mancer Mystic G1, ARGB, 120mm', preco: 211.75, favorito: false }
+            ],
+          }
+        },
+
+        created () {
+          setInterval(() => {
+              this.index = (this.index % 5) + 1;
+            }, 3000);
+        },
+
+        methods: {
+          proximoSlide() {
+            this.index = (this.index % 5) + 1;
+          },
+          anteriorSlide() {
+            this.index = (this.index - 2 + 5) % 5 + 1;
+          },
+
+        }
+      });
+
+    </script>
 </body>
 </html>
