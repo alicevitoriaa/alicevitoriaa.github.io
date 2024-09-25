@@ -54,7 +54,7 @@
 
     <div class="text-white relative" id="app">
 
-        <header class="bg-black flex justify-around gap-3 p-10 fixed w-full z-10 top-0">
+        <header class="bg-black flex justify-around gap-3 px-10 py-8 fixed w-full z-10 top-0">
             <a id="Thome" :class="t" href="#home">Home</a>
             <div class="hidden max-lg:flex">|</div>
             <a id="Tsobremim" :class="t" href="#sobremim">Sobre mim</a>
@@ -90,13 +90,13 @@
             </div>
         </div>
 
-        <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 !min-h-screen p-8 px-0 text-center flex flex-col items-center justify-center">
+        <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 p-8 px-0 text-center flex flex-col items-center justify-center">
             <div class="text-4xl font-['JSB'] px-10">Projetos</div>
 
-            <div class="flex gap-2 overflow-hidden">
+            <div class="flex h-full gap-2 overflow-hidden">
 
                 <div :id="j + 1" :class="[(j + 1) == index ? 'scale-100 opacity-100' : 'scale-90 opacity-50', t]" 
-                class="!w-[920px] max-lg:w-[50vw] cursor-pointer justify-center flex relative projs min-h-[60vh] bg-top bg-no-repeat bg-contain" 
+                class="w-[80vw] min-h-[60vh] cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
                 :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
 
                     <div v-if="(j + 1) == index" class="z-10 p-8 self-end flex flex-col gap-5">
@@ -110,8 +110,8 @@
 
             </div>
 
-            <div class="flex gap-3 px-5">
-                <i v-for="n in 5" :key="n" @click="index = n" class="bi cursor-pointer" :class="n == index ? 'bi-record-fill' : 'bi-record'"></i>
+            <div class="flex gap-3 px-10">
+                <i v-for="n in projetos.length" :key="n" @click="index = n" class="text-xl bi cursor-pointer" :class="n == index ? 'bi-record-fill' : 'bi-record'"></i>
             </div>
         </div>
 
