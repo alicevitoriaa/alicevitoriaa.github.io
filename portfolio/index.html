@@ -97,8 +97,8 @@
             <div class="flex gap-2 overflow-hidden">
 
                 <div :id="j + 1" :class="[(j + 1) == index ? 'scale-100 opacity-100' : 'scale-90 opacity-50', t]" 
-                class="!w-[920px] max-lg:w-[50vw] justify-center flex relative projs min-h-[60vh] bg-top bg-no-repeat bg-contain" 
-                :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos">
+                class="!w-[920px] max-lg:w-[50vw] cursor-pointer justify-center flex relative projs min-h-[60vh] bg-top bg-no-repeat bg-contain" 
+                :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
 
                     <div v-if="(j + 1) == index" class="z-10 p-8 self-end flex flex-col gap-5">
                         <div>{{ p.nome }}</div>
@@ -231,6 +231,10 @@
 
                 onUnmounted(() => { window.removeEventListener('scroll', acompanharScroll) })
 
+                const openCase = (nome) => {
+                    window.open(`./case/${nome.toLowerCase().replace(/[^a-z0-9]/g, '')}/`);
+                }
+
                 return {
                     cursor,
                     subT,
@@ -240,7 +244,8 @@
                     index,
                     t,
                     scroll,
-                    bg
+                    bg,
+                    openCase
                 }
             }
         }).mount('#app')
