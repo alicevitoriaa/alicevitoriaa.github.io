@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
     <title>Alice V.- portfólio</title>
 </head>
 <body>
@@ -90,13 +90,25 @@
             </div>
         </div>
 
-        <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 p-8 px-0 text-center flex flex-col items-center justify-center">
-            <div class="text-4xl font-['JSB'] px-10">Projetos</div>
+        <div id="projetos" class="max-lg:px-10 secao flex flex-col overflow-hidden gap-5 p-10 px-0 text-center flex flex-col items-center justify-center">
+            <div class="text-4xl font-['JSB'] px-10 max-lg:px-0">Projetos</div>
 
-            <div class="flex h-full gap-2 overflow-hidden">
+            <div class="flex max-lg:flex-col max-lg:w-full max-lg:gap-5 gap-2 overflow-hidden">
+
+                <div :id="j + 1" :class="t" class="rounded-lg hidden max-lg:flex min-h-[70vh] cursor-pointer justify-center flex relative projs bg-top bg-no-repeat bg-cover" 
+                :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
+
+                    <div v-if="(j + 1) == index" class="z-10 p-8 self-end max-lg:self-center flex flex-col gap-5">
+                        <div>{{ p.nome }}</div>
+                        <div class="flex gap-4">
+                            <img class="size-7" v-for="t in p.tecs" :src="'imgs/' + (t + 1) + '.png'" :alt="t">
+                        </div>
+                    </div>
+
+                </div>
 
                 <div :id="j + 1" :class="[(j + 1) == index ? 'scale-100 opacity-100' : 'scale-90 opacity-50', t]" 
-                class="w-[80vw] min-h-[60vh] cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
+                class="rounded-lg max-lg:hidden w-[80vw] min-h-[85vh] cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
                 :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
 
                     <div v-if="(j + 1) == index" class="z-10 p-8 self-end flex flex-col gap-5">
@@ -110,7 +122,7 @@
 
             </div>
 
-            <div class="flex gap-3 px-10">
+            <div class="flex max-lg:hidden gap-3 px-10">
                 <i v-for="n in projetos.length" :key="n" @click="index = n" class="text-xl bi cursor-pointer" :class="n == index ? 'bi-record-fill' : 'bi-record'"></i>
             </div>
         </div>
