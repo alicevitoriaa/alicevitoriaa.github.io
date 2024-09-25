@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Alice V.- portfólio</title>
 </head>
@@ -55,7 +54,7 @@
 
     <div class="text-white relative" id="app">
 
-        <header class="bg-black flex justify-around gap-3 p-8 fixed w-full z-10 top-0">
+        <header class="bg-black flex justify-around gap-3 p-10 fixed w-full z-10 top-0">
             <a id="Thome" :class="t" href="#home">Home</a>
             <div class="hidden max-lg:flex">|</div>
             <a id="Tsobremim" :class="t" href="#sobremim">Sobre mim</a>
@@ -67,7 +66,7 @@
 
         <a href="#home"><i v-if="scroll" :class="bg ? 'text-[#5f4fcd]' : 'text-black'" class="bi bi-arrow-up-circle-fill fixed z-20 bottom-0 right-0 m-8 text-4xl"></i></a>
 
-        <div id="home" class="secao flex flex-col gap-2 h-screen p-8 text-center flex flex-col items-center justify-center">
+        <div id="home" class="secao flex flex-col gap-2 h-screen p-10 text-center flex flex-col items-center justify-center">
             <div class="font-['JSB'] text-8xl leading-tight max-lg:text-4xl">Olá,<br>eu sou Alice :)</div>
             <div class="text-4xl max-lg:text-2xl" id="subT">{{ subT }}</div>
             <div class="mt-7 flex gap-4 text-xl max-lg:flex-col">
@@ -76,7 +75,7 @@
             </div>
         </div>
 
-        <div id="sobremim" class="secao bg-[#5f4fcd] flex min-h-screen flex-col gap-5 p-8 text-center flex flex-col items-center justify-center">
+        <div id="sobremim" class="secao bg-[#5f4fcd] flex min-h-screen flex-col gap-5 p-10 text-center flex flex-col items-center justify-center">
             <div class="text-4xl font-['JSB']">Sobre mim</div>
 
             <div class="text-2xl mb-8 max-lg:text-xl">Sou uma desenvolvedora de {{ idade }} anos focada em criar soluções ágeis e eficientes. Sempre em busca de aprendizado 
@@ -92,7 +91,7 @@
         </div>
 
         <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 !min-h-screen p-8 px-0 text-center flex flex-col items-center justify-center">
-            <div class="text-4xl font-['JSB'] px-5">Projetos</div>
+            <div class="text-4xl font-['JSB'] px-10">Projetos</div>
 
             <div class="flex gap-2 overflow-hidden">
 
@@ -116,7 +115,7 @@
             </div>
         </div>
 
-        <div id="contato" class="secao flex flex-col gap-5 h-[100vh] p-8 text-center flex flex-col items-center justify-center bg-[#5f4fcd]">
+        <div id="contato" class="secao flex flex-col gap-5 h-[100vh] p-10 text-center flex flex-col items-center justify-center bg-[#5f4fcd]">
             <div class="text-4xl font-['JSB']">Contato</div>
             <div class="flex gap-5">
                 <a href="https://www.linkedin.com/in/alice-vit%C3%B3ria-5245a22a4/" target="_blank"><i class="bi bi-linkedin text-2xl hover:scale-90" :class="t"></i></a>
@@ -129,8 +128,8 @@
 
     </div>
 
-
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script/tailwindcss.js"></script>
+    <script src="script/vue3.js"></script>
 
     <script>
         const { createApp, ref, onMounted, watch, onUnmounted } = Vue;
