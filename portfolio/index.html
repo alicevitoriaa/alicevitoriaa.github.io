@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Alice V.- portfólio</title>
+</head>
+<body>
+
+    <style>
+        
+        @font-face {
+            font-family: 'JSR';
+            src: url('static/JosefinSans-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'JSB';
+            src: url('static/JosefinSans-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body{
+            margin: 0; 
+            background: #000;
+            font-family: 'JSR', sans-serif;
+            transition: all ease-in-out 0.3s;
+        }
+
+        @keyframes pisca{
+            0%, 100%{
+                opacity: 1;
+            }
+            50%{
+                opacity: 0;
+            }
+        }
+
+        #subT:after{ content: '|'; animation: pisca .7s infinite }
+
+        .projs::before{
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+            position: absolute;
+        }
+
+    </style>
+
+    <div class="text-white relative" id="app">
+
+        <header class="bg-black flex justify-around gap-3 p-8 fixed w-full z-10 top-0">
+            <a id="Thome" :class="t" href="#home">Home</a>
+            <div class="hidden max-lg:flex">|</div>
+            <a id="Tsobremim" :class="t" href="#sobremim">Sobre mim</a>
+            <div class="hidden max-lg:flex">|</div>
+            <a id="Tprojetos" :class="t" href="#projetos">Projetos</a>
+            <div class="hidden max-lg:flex">|</div>
+            <a id="Tcontato" :class="t" href="#contato">Contato</a>
+        </header>
+
+        <a href="#home"><i v-if="scroll" :class="bg ? 'text-[#5f4fcd]' : 'text-black'" class="bi bi-arrow-up-circle-fill fixed z-20 bottom-0 right-0 m-8 text-4xl"></i></a>
+
+        <div id="home" class="secao flex flex-col gap-2 h-screen p-8 text-center flex flex-col items-center justify-center">
+            <div class="font-['JSB'] text-8xl leading-tight max-lg:text-4xl">Olá,<br>eu sou Alice :)</div>
+            <div class="text-4xl max-lg:text-2xl" id="subT">{{ subT }}</div>
+            <div class="mt-7 flex gap-4 text-xl max-lg:flex-col">
+                <button onclick="window.open('./currículo - Alice.pdf')" class="border-2 border-[#5f4fcd] bg-[#5f4fcd] rounded-full p-3 px-5 hover:scale-90" :class="t">Visualizar cv</button>
+                <button onclick="window.open('https://forms.gle/LKfo8b7ZREf2DzB47')" class="border-2 border-[#5f4fcd] rounded-full p-3 px-5 hover:scale-90" :class="t">Entrar em contato</button>
+            </div>
+        </div>
+
+        <div id="sobremim" class="secao bg-[#5f4fcd] flex min-h-screen flex-col gap-5 p-8 text-center flex flex-col items-center justify-center">
+            <div class="text-4xl font-['JSB']">Sobre mim</div>
+
+            <div class="text-2xl mb-8 max-lg:text-xl">Sou uma desenvolvedora de {{ idade }} anos focada em criar soluções ágeis e eficientes. Sempre em busca de aprendizado 
+            e melhorias, adoro colaborar em projetos que fazem a diferença. No meu tempo livre, gosto de ler, relaxar na 
+            praia e jogar, mantendo o equilíbrio entre trabalho e lazer. Seja bem vindo(a) ao meu portfólio e fique por dentro da minha stack:</div>
+            
+            <div class="flex gap-6 flex-wrap justify-center">
+                <div v-for="(s, i) in stacks" class="flex flex-col items-center">
+                    <img class="size-16 brightness-0 invert max-lg:size-14" :src="'imgs/' + (i + 1) + ((i + 1 === 14) ? '.svg' : '.png')" :alt="s">
+                    <div>{{ s }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 !min-h-screen p-8 px-0 text-center flex flex-col items-center justify-center">
+            <div class="text-4xl font-['JSB'] px-5">Projetos</div>
+
+            <div class="flex gap-2 overflow-hidden">
+
+                <div :id="j + 1" :class="[(j + 1) == index ? 'scale-100 opacity-100' : 'scale-90 opacity-50', t]" 
+                class="!w-[920px] max-lg:w-[50vw] justify-center flex relative projs min-h-[60vh] bg-top bg-no-repeat bg-contain" 
+                :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos">
+
+                    <div v-if="(j + 1) == index" class="z-10 p-8 self-end flex flex-col gap-5">
+                        <div>{{ p.nome }}</div>
+                        <div class="flex gap-4">
+                            <img class="size-7" v-for="t in p.tecs" :src="'imgs/' + (t + 1) + '.png'" :alt="t">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="flex gap-3 px-5">
+                <i v-for="n in 5" :key="n" @click="index = n" class="bi cursor-pointer" :class="n == index ? 'bi-record-fill' : 'bi-record'"></i>
+            </div>
+        </div>
+
+        <div id="contato" class="secao flex flex-col gap-5 h-[100vh] p-8 text-center flex flex-col items-center justify-center bg-[#5f4fcd]">
+            <div class="text-4xl font-['JSB']">Contato</div>
+            <div class="flex gap-5">
+                <a href="https://www.linkedin.com/in/alice-vit%C3%B3ria-5245a22a4/" target="_blank"><i class="bi bi-linkedin text-2xl hover:scale-90" :class="t"></i></a>
+                <a href="https://forms.gle/LKfo8b7ZREf2DzB47" target="_blank"><i class="bi bi-envelope text-2xl hover:scale-90" :class="t"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=5521966571141" target="_blank"><i class="bi bi-whatsapp text-2xl hover:scale-90" :class="t"></i></a>
+            </div>
+            <hr>
+            <div class="text-2xl max-lg:text-xl">Agradeço por conferir meu portfólio! Fico à disposição para qualquer dúvida <i class="bi bi-emoji-smile"></i></div>
+        </div>
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const { createApp, ref, onMounted, watch, onUnmounted } = Vue;
+
+        createApp({
+            setup() {
+
+                let subT = ref('')
+                let idade = ref(((new Date() - new Date('2006/02/16')) / 31536000000).toFixed(0) - 1) //new Date calcula a diferença milisegundos, e '31536000000' é o número de milisegundos por anos escluindo os anos bissexto
+                let index = ref('');
+                let bg = ref(false)
+                const t = ref('transition ease-in-out duration-300')
+                const scroll = ref(false);
+                const stacks = ref([
+                    "HTML 5",
+                    "CSS 3",
+                    "JavaScript 5",
+                    "TypeScript",
+                    "Vue.JS",
+                    "React.JS",
+                    "Redux",
+                    "JQuery",
+                    "Bootstrap",
+                    "Sass",
+                    "Next.js",
+                    "Figma",
+                    "Tailwind CSS",
+                    "Styled components"
+                ]);
+                const projetos = ref([
+                    {nome: 'To-do list', tecs: [0, 12, 4, 11]},
+                    {nome: 'Condominio Verde Serrano', tecs: [0, 1, 2, 7, 8, 11]},
+                    {nome: 'Rizer', tecs: [0, 4, 12, 11]},
+                    {nome: 'Youtube Clone', tecs: [0, 5, 9, 11]},
+                    {nome: 'Galeria', tecs: [0, 5, 9, 11]},
+                ]);
+
+                watch(index, (newValue, oldValue) => {
+                    const el = document.getElementById(newValue);
+                    const container = el.parentElement;
+                    const offset = ((container.clientWidth / 2) - (newValue == 1 ? 0 : el.offsetLeft )) - (el.clientWidth / 2) // cálculo do deslocamento
+                    container.style.transform = 'translateX(' + (offset) + 'px)'
+                });
+
+                const cursor = () => {
+
+                    var array = ('Desenvolvedora Front-end').split('');
+
+                    array.forEach(function (letra, i) {
+                        setTimeout(function () {
+                            subT.value += letra;
+                        }, 100 * i);
+                    });
+                };
+
+                const acompanharScroll = () => { scroll.value = window.window.scrollY > 50 }
+
+                onMounted(() => {
+                    // Opções para o IntersectionObserver
+                    const options = {
+                    root: null, // O viewport é a própria página
+                    rootMargin: '0px',
+                    threshold: 0.5, // Quando 50% da div estiver visível, considera-se visível
+                    };
+
+                    // Função que será executada quando uma div entrar ou sair da visualização
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+
+                                document.querySelectorAll('a[id^="T"]').forEach((a) => {
+                                    a.style.color = '#fff';
+                                });
+
+                                document.getElementById(`T${entry.target.id}`).style.color = '#5f4fcd'
+
+                                if (entry.target.id == 'home' || entry.target.id == 'projetos') {
+                                    bg.value = true;
+                                }else{
+                                    bg.value = false;
+                                }
+                                
+                            }
+                        });
+                    }, options);
+
+                    // Observa as divs com id "section"
+                    const sections = document.querySelectorAll('div[class^="secao"]');
+                    sections.forEach((section) => {
+                        observer.observe(section); // Adiciona cada div ao observer
+                    });
+
+                    cursor()
+                    index.value = 1
+                    window.addEventListener('scroll', acompanharScroll)
+                
+                });
+
+                onUnmounted(() => { window.removeEventListener('scroll', acompanharScroll) })
+
+                return {
+                    cursor,
+                    subT,
+                    idade,
+                    stacks,
+                    projetos,
+                    index,
+                    t,
+                    scroll,
+                    bg
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>

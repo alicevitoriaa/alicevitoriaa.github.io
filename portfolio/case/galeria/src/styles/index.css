@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  gap: 0;
+}
+header i {
+  font-size: 50px;
+  display: flex;
+}
+header div {
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+#pesquisa {
+  display: grid;
+  padding: 30px;
+  gap: 20px;
+}
+#pesquisa #filtros {
+  display: flex;
+  padding: 20px 0;
+  gap: 15px;
+  align-items: center;
+  overflow: hidden;
+}
+#pesquisa #filtros div {
+  display: flex;
+  padding: 0;
+  gap: 20px;
+}
+#pesquisa #filtros div button {
+  padding: 15px;
+  gap: 0;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  color: #fff;
+  background: none;
+  cursor: pointer;
+  transition: all ease-in-out 0.5s;
+}
+#pesquisa #filtros div button:hover {
+  background: #fff;
+  color: #000;
+}
+#pesquisa #filtros div button:focus {
+  background: #fff;
+  color: #000;
+}
+#pesquisa #filtros .btnChev {
+  cursor: pointer;
+}
+#pesquisa #campP {
+  padding: 15px;
+  gap: 10px;
+  display: flex;
+  border: 2px solid #5c5c5c;
+  border-radius: 50px;
+}
+#pesquisa #campP:focus-within {
+  border: 2px solid #fff;
+}
+#pesquisa #campP:focus-within svg path {
+  fill: #fff;
+}
+#pesquisa #campP input {
+  border: none;
+  outline: none;
+  background: none;
+  color: #fff;
+  width: 100% !important;
+}
+
+#galeria {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 40px 40px 40px;
+  gap: 20px;
+}
+#galeria .linha {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 20px;
+}
+#galeria .linha .cmp {
+  border-radius: 12px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: sans-serif;
+  background-position: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+#galeria .linha .cmp:hover .txt {
+  transform: translateY(0);
+}
+#galeria .linha .cmp .txt {
+  display: flex;
+  flex-direction: column;
+  transition: all ease-in-out 0.5s;
+  padding: 20px;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.6431372549);
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+}
+#galeria .linha .cmp .txt .foto {
+  border-radius: 50px;
+  width: 42px !important;
+  height: 42px !important;
+  overflow: hidden;
+}
+#galeria .linha .cmp .txt .foto img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+}
+#galeria .linha .cmp .txt p {
+  font-weight: 600;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+#galeria .linha .cmp .txt p::first-letter {
+  text-transform: uppercase;
+}/*# sourceMappingURL=index.css.map */

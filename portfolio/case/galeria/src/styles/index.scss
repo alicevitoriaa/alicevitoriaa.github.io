@@ -1,0 +1,163 @@
+@import './_cores';
+
+@mixin espaco($p, $g){
+    padding: $p;
+    gap: $g
+}
+
+body{
+    margin: 0;
+    background-color: $preto;
+    color: $branco;
+    overflow-x: hidden;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include espaco(30px, 0);
+
+    i{
+        font-size: 50px;
+        display: flex;
+    }
+
+    div{
+        margin-top: 15px;
+        font-weight: 600;
+    }
+}
+
+
+#pesquisa{
+
+    display: grid;
+    @include espaco(30px, 20px); 
+
+    #filtros{
+        display: flex;
+        @include espaco(20px 0, 15px);
+        align-items: center;
+        overflow: hidden;
+
+        div{
+            display: flex;
+            @include espaco(0, 20px);
+
+            button{
+                @include espaco(15px, 0);
+                border: 2px solid $branco;
+                border-radius: 50px;
+                color: $branco;
+                background: none;
+                cursor: pointer;
+                transition: all ease-in-out 0.5s;
+
+                &:hover{
+                    background: $branco;
+                    color: $preto;
+                }
+
+                &:focus{
+                    background: $branco;
+                    color: $preto;
+                }
+            }
+        }
+
+        .btnChev{
+            cursor: pointer;
+        }
+    
+    }
+
+    #campP{
+        @include espaco(15px, 10px);
+        display: flex;
+        border: 2px solid $cinza;
+        border-radius: 50px;
+
+        &:focus-within{ //within garante que o pai seja alterado quando o input estiver focus
+            border: 2px solid $branco;
+            svg {
+                path {
+                    fill: $branco;
+                }
+            }
+        }
+
+        input{
+            border: none;
+            outline: none;
+            background: none;
+            color: $branco;
+            width: 100%!important;
+        }
+    }
+}
+
+#galeria{
+    display: flex;
+    flex-wrap: wrap;
+    @include espaco(0 40px 40px 40px, 20px);
+    
+    .linha{
+        display: flex;
+        flex-direction: column;
+        @include espaco(0, 20px);
+
+        .cmp{
+            border-radius: 12px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: sans-serif;
+            background-position: center; // imagem
+            overflow: hidden;
+            cursor: pointer;
+            
+            &:hover{
+                .txt{
+                    transform: translateY(0);
+                }
+            }
+
+            .txt{
+                display: flex;
+                flex-direction: column;
+                transition: all ease-in-out 0.5s;
+                @include espaco(20px, 20px);
+                background: $txt;
+                justify-content: center;
+                align-items: center;
+                transform: translateY(-100%);
+
+                
+                .foto{
+                    border-radius: 50px;
+                    width: 42px!important;
+                    height: 42px!important;
+                    overflow: hidden;
+    
+                    img{ object-fit: cover; width: 100%; }
+                }
+                
+                p{ 
+                    font-weight: 600; 
+                    width: 100%;
+                    margin: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                    text-align: center;
+                    &::first-letter{
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+
+}

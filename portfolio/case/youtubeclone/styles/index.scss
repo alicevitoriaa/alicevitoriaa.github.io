@@ -1,0 +1,109 @@
+@import './colors';
+
+@mixin pdd(){
+    padding: 20px;
+}
+
+@mixin botao(){
+    padding: 10px;
+    background: $cinza;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    color: $branco;
+}
+
+@mixin flexGap($flex){
+    display: $flex;
+    gap: 10px;
+}
+
+body{
+    margin: 0;
+    background: $fundo;
+    color: $branco;
+    font-family: sans-serif;
+}
+
+header{
+    @include pdd();
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+
+    div{
+        display: flex; 
+        #logo{
+            width: 100px;
+        }
+        button{
+            @include botao();
+            width: 47px;
+            height: 47px;
+            font-size: large;
+            i{
+                justify-content: center;
+
+            }
+        }
+    }
+}
+
+.fotoP{
+    border-radius: 50px;
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+i{
+    display: flex;
+}
+
+#inPesquisar{
+    border: 1px solid $cinza;
+    border-radius: 50px;
+    background: $cinza2;
+
+    input{
+        background: none;
+        border: none;
+        outline: none;
+        margin: 15px;
+        width: 500px;
+        margin-right: 0;
+        color: $branco;
+    }
+
+    i{
+        padding: 15px;
+    }
+
+    div{
+        i{
+            background: $cinza3;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-left: 1px solid $cinza;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+    }
+
+}
+
+#container{
+    @include flexGap(flex);
+    @include pdd();
+
+    div{
+        width: fit-content;
+        @include flexGap(flexbox);
+        .topicos{
+            @include flexGap(grid);
+            justify-items: center;
+        }
+    }
+
+}
