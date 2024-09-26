@@ -1,11 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Alice V. - case</title>
 </head>
 <body>
-    
+
+    <style>
+        @font-face {
+            font-family: 'JSR';
+            src: url('../static/JosefinSans-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'JSB';
+            src: url('../static/JosefinSans-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body{
+            margin: 0; 
+            background: #000;
+            font-family: 'JSR', sans-serif;
+            transition: all ease-in-out 0.3s;
+            height: 100vh;
+        }
+
+        .projs::before{
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+            position: absolute;
+        }
+
+    </style>
+
+    <div class="border-t-8 border-[#5f4fcd] h-full" id="app">
+
+        <div class="text-4xl font-['JSB'] text-white text-center p-10 pb-0">Case ({{ projetos.length }})</div>
+
+        <div class="grid max-lg:grid-cols-1 grid-cols-2 gap-8 p-10 text-white">
+            <div class="hover:scale-95 transition ease-in-out duration-300 rounded-lg min-h-[50vh] overflow-hidden cursor-pointer border border-[#5f4fcd] justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
+            :style="{ backgroundImage: `url('../imgs/p${(i + 1)}.png')` }" v-for="(p, i) in projetos" :key="i" @click="openCase(p.nome)">
+
+                <div class="z-10 p-8 self-end flex flex-col gap-5">
+                    <div class="text-center">{{ p.nome }}</div>
+                    <div class="flex gap-4">
+                        <img class="size-7" v-for="t in p.tecs" :src="'../imgs/' + (t + 1) + '.png'" :alt="t">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../script/tailwindcss.js"></script>
+    <script src="../script/vue3.js"></script>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+
+                const projetos = ref([
+                    {nome: 'To-do list', tecs: [0, 12, 4, 11]},
+                    {nome: 'Condominio Verde Serrano', tecs: [0, 1, 2, 7, 8, 11]},
+                    {nome: 'Rizer', tecs: [0, 4, 12, 11]},
+                    {nome: 'Youtube Clone', tecs: [0, 5, 9, 11]},
+                    {nome: 'Galeria', tecs: [0, 5, 9, 11]},
+                ]);
+
+                const openCase = (nome) => {
+                    window.open(`./${nome.toLowerCase().replace(/[^a-z0-9]/g, '')}/`);
+                }
+
+                return {
+                    projetos,
+                    openCase
+                }
+            }
+        }).mount('#app')
+    </script>
 </body>
 </html>
