@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Alice V.- portfólio</title>
 </head>
 <body>
@@ -50,6 +50,15 @@
             position: absolute;
         }
 
+        #p2::after{
+            content: '';
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+            position: absolute;
+            bottom: 0;
+        }
+
     </style>
 
     <div class="text-white relative" id="app">
@@ -90,25 +99,13 @@
             </div>
         </div>
 
-        <div id="projetos" class="max-lg:px-10 secao flex flex-col overflow-hidden gap-5 p-10 px-0 text-center flex flex-col items-center justify-center">
-            <div class="text-4xl font-['JSB'] px-10 max-lg:px-0">Projetos</div>
+        <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 p-10 px-0 text-center max-lg:px-10 flex flex-col items-center justify-center">
+            <div class="text-4xl font-['JSB'] px-10 max-lg:px-0">Projetos <a href="case/" target="_blank"><i class="hover:scale-95 text-2xl bi bi-box-arrow-in-up-right"></i></a></div>
 
-            <div class="flex max-lg:flex-col max-lg:w-full max-lg:gap-5 gap-2 overflow-hidden">
-
-                <div :id="j + 1" :class="t" class="rounded-lg hidden max-lg:flex min-h-[70vh] cursor-pointer justify-center flex relative projs bg-top bg-no-repeat bg-cover" 
-                :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
-
-                    <div v-if="(j + 1) == index" class="z-10 p-8 self-end max-lg:self-center flex flex-col gap-5">
-                        <div>{{ p.nome }}</div>
-                        <div class="flex gap-4">
-                            <img class="size-7" v-for="t in p.tecs" :src="'imgs/' + (t + 1) + '.png'" :alt="t">
-                        </div>
-                    </div>
-
-                </div>
+            <div class="flex max-lg:hidden gap-2 overflow-hidden">
 
                 <div :id="j + 1" :class="[(j + 1) == index ? 'scale-100 opacity-100' : 'scale-90 opacity-50', t]" 
-                class="rounded-lg max-lg:hidden w-[80vw] min-h-[85vh] cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
+                class="rounded-lg w-[80vw] min-h-[85vh] overflow-hidden cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
                 :style="{ backgroundImage: `url('imgs/p${j + 1}.png')` }" v-for="(p, j) in projetos" :key="j + 1" @click="openCase(p.nome)">
 
                     <div v-if="(j + 1) == index" class="z-10 p-8 self-end flex flex-col gap-5">
@@ -120,6 +117,22 @@
 
                 </div>
 
+            </div>
+
+            <div class="hidden max-lg:flex flex-wrap gap-8 overflow-hidden max-h-[80vh] relative" id="p2">
+
+                <div class="rounded-lg min-h-[50vh] w-full overflow-hidden cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
+                :style="{ backgroundImage: `url('imgs/p${n}.png')` }" :class="{'opacity-50': n === 2}" v-for="n in [4, 5]" :key="n" @click="openCase(projetos[n - 1].nome)">
+
+                    <div class="z-10 p-8 self-end flex flex-col gap-5">
+                        <div>{{ projetos[n - 1].nome }}</div>
+                        <div class="flex gap-4">
+                            <img class="size-7" v-for="t in projetos[n - 1].tecs" :src="'imgs/' + (t + 1) + '.png'" :alt="t">
+                        </div>
+                    </div>
+
+                </div>
+                <a href="case/" target="_blank"><button :class="t" class="w-[-webkit-fill-available] z-10 absolute bottom-0 m-10 border-2 border-[#5f4fcd] rounded-full p-3 px-5 hover:scale-90">Ver todos</button></a>
             </div>
 
             <div class="flex max-lg:hidden gap-3 px-10">
