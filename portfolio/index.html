@@ -100,7 +100,7 @@
         </div>
 
         <div id="projetos" class="secao flex flex-col overflow-hidden gap-5 p-10 px-0 text-center max-lg:px-10 flex flex-col items-center justify-center">
-            <div class="text-4xl font-['JSB'] px-10 max-lg:px-0">Projetos <a href="case/" target="_blank"><i class="hover:scale-95 text-2xl bi bi-box-arrow-in-up-right"></i></a></div>
+            <div class="text-4xl font-['JSB'] px-10 max-lg:px-0">Projetos <a class="max-lg:hidden" href="case/" target="_blank"><i class="hover:scale-95 text-2xl bi bi-box-arrow-in-up-right"></i></a></div>
 
             <div class="flex max-lg:hidden gap-2 overflow-hidden">
 
@@ -121,7 +121,7 @@
 
             <div class="hidden max-lg:flex flex-wrap gap-8 overflow-hidden max-h-[80vh] relative" id="p2">
 
-                <div class="rounded-lg min-h-[50vh] w-full overflow-hidden cursor-pointer justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
+                <div class="rounded-lg min-h-[50vh] w-full overflow-hidden cursor-pointer border border-[#5f4fcd] justify-center flex relative projs bg-center bg-no-repeat bg-cover" 
                 :style="{ backgroundImage: `url('imgs/p${n}.png')` }" :class="{'opacity-50': n === 2}" v-for="n in [4, 5]" :key="n" @click="openCase(projetos[n - 1].nome)">
 
                     <div class="z-10 p-8 self-end flex flex-col gap-5">
