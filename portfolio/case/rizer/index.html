@@ -4,85 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="imgs/headsetLogo.svg" type="image/x-icon">
-    <script src="tailwind.min.js"></script>
+    <script src="../../script/tailwindcss.js"></script>
     <title>Rizer</title>
 </head>
 
 <body class="m-0 font-sans">
-    <div class="w-full h-full app">
-        <header>
-          <div class="py-5 px-20 grid grid-cols-4 gap-4">
-            <div class="fs-1 flex text-5xl font-mono">RI <div class="text-purple-800">Z</div> ER</div>
-            <div class="col-span-2 flex border p-3 gap-3 rounded-full">
-                <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
-                <input v-model="textoPesquisa" class="w-full focus:outline-none bg-transparent cursor-no-drop" type="search" placeholder="O que deseja comprar hoje...">
-            </div>
-            <div class="flex justify-end gap-4">
-              <div @click="viewCarrinho = !viewCarrinho" class="relative flex" :class="[carrinho.length == 0 ? 'cursor-no-drop' : 'cursor-pointer']">
-                <div class="absolute p-1 h-[25px] w-[25px] right-[-10px] items-center justify-center flex text-xs rounded-full bg-purple-800 text-white font-semibold	" v-text="carrinho.length"></div>
-                <img class="stroke-2 w-8" src="imgs/carrinho.svg" alt="carrinho">
-              </div> 
-              <img class="stroke-2 w-8 cursor-no-drop" src="imgs/perfil.svg" alt="perfil">
-              </div>
-            </div>
+    <div class="w-full h-full" id="app">
 
-          <div class="rounded-lg z-50 absolute right-6 text-gray-800 max-h-56 w-86 bg-white overflow-auto" v-if="viewCarrinho && carrinho.length != 0">
-            
-            <div class="border-b py-1 px-4" v-for="(c, index) in carrinho">
-
-              <div class="grid grid-cols-4 gap-2 items-center" v-if="produtos.lancamentos[c.index].id == c.idProduto" :key="c.idProduto">
-                <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-                <div class="col-span-2">
-                  <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.lancamentos[c.index].nome }}</div>
-                  <div>R$ {{ (produtos.lancamentos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-                </div>
-                <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-              </div>
-
-              <div class="grid grid-cols-4 gap-2 items-center" v-else-if="produtos.maisVendidos[c.index].id == c.idProduto">
-                <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-                <div class="col-span-2">
-                  <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.maisVendidos[c.index].nome }}</div>
-                  <div>R$ {{ (produtos.maisVendidos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-                </div>
-                <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-              </div>
-
-              <div class="grid grid-cols-4 gap-2 items-center"  v-else-if="produtos.destaques[c.index].id == c.idProduto">
-                <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-                <div class="col-span-2">
-                  <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.destaques[c.index].nome }}</div>
-                  <div>R$ {{ (produtos.destaques[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-                </div>
-                <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-              </div>     
-            </div>
-
-            <div class="flex justify-between p-4">
-              <div><b>Total de itens:</b> {{ carrinho.length }}</div>
-              <div><b>Valor total:</b> R$ {{ tot.toString().replace('.', ',') }}</div>
-            </div>
+        <header class="py-5 px-20 max-lg:px-10 grid grid-cols-4 max-lg:grid-cols-1 gap-4">
+          <div class="fs-1 flex text-5xl max-lg:justify-self-center font-mono">RI <div class="text-purple-800">Z</div> ER</div>
+          <div class="col-span-2 flex border p-3 gap-3 rounded-full">
+              <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
+              <input v-model="textoPesquisa" class="w-full focus:outline-none bg-transparent cursor-no-drop" type="search" placeholder="O que deseja comprar hoje...">
           </div>
-
-          <div class="py-3 px-20  bg-purple-800 flex gap-20 justify-center text-center">
-              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
-                <img src="imgs/mouse.svg" alt="icone mouse" class="w-8 cursor-no-drop">
-                Mouse
-              </a>
-              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
-                <img src="imgs/keyboard.svg" alt="icone teclado" class="w-8 cursor-no-drop">
-                Teclado
-              </a>
-              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
-                <img src="imgs/headset.svg" alt="icone headset" class="w-8 cursor-no-drop">
-                Teclado
-              </a>
-              <a href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
-                <img src="imgs/mic.svg" alt="icone mic" class="w-8 cursor-no-drop">
-                Microfone
-              </a>
-          </div>
+          <div class="flex justify-end gap-4">
+            <div @click="viewCarrinho = !viewCarrinho" class="relative flex" :class="[carrinho.length == 0 ? 'cursor-no-drop' : 'cursor-pointer']">
+              <div class="absolute p-1 h-[25px] w-[25px] right-[-10px] items-center justify-center flex text-xs rounded-full bg-purple-800 text-white font-semibold	" v-text="carrinho.length"></div>
+              <img class="stroke-2 w-8" src="imgs/carrinho.svg" alt="carrinho">
+            </div> 
+            <img class="stroke-2 w-8 cursor-no-drop" src="imgs/perfil.svg" alt="perfil">
+            </div>
         </header>
+
+        <div class="rounded-lg z-50 absolute right-6 text-gray-800 max-h-56 w-86 bg-white overflow-auto" v-if="viewCarrinho && carrinho.length != 0">
+          
+          <div class="border-b py-1 px-4" v-for="(c, index) in carrinho">
+
+            <div class="grid grid-cols-4 gap-2 items-center" v-if="produtos.lancamentos[c.index].id == c.idProduto" :key="c.idProduto">
+              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
+              <div class="col-span-2">
+                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.lancamentos[c.index].nome }}</div>
+                <div>R$ {{ (produtos.lancamentos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
+              </div>
+              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 items-center" v-else-if="produtos.maisVendidos[c.index].id == c.idProduto">
+              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
+              <div class="col-span-2">
+                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.maisVendidos[c.index].nome }}</div>
+                <div>R$ {{ (produtos.maisVendidos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
+              </div>
+              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 items-center"  v-else-if="produtos.destaques[c.index].id == c.idProduto">
+              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
+              <div class="col-span-2">
+                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.destaques[c.index].nome }}</div>
+                <div>R$ {{ (produtos.destaques[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
+              </div>
+              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
+            </div>     
+          </div>
+
+          <div class="flex justify-between p-4">
+            <div><b>Total de itens:</b> {{ carrinho.length }}</div>
+            <div><b>Valor total:</b> R$ {{ tot.toString().replace('.', ',') }}</div>
+          </div>
+        </div>
+
+        <div class="py-5 px-20 max-lg:px-10 bg-purple-800 flex gap-20 justify-center text-center">
+          <a v-for="(t, i) in topicos" href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+            <img :src="'imgs/at' + (i + 1) + '.svg'" :alt="t" class="w-8 cursor-no-drop">
+            <div>{{ t }}</div>
+          </a>
+        </div>
     
         <main>
           <div id="default-carousel" class="py-5 px-20 relative w-full" data-carousel="slide">
@@ -96,14 +83,14 @@
                 <button v-for="n in 3" type="button" class="w-3 h-3 rounded-full bg-gray-700" :class="[ index == n ? 'bg-purple-800' : 'bg-gray-700' ]" @click="index = n"></button>
               </div>
               
-              <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 group" @click="anteriorSlide">
+              <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value - 2 + 3) % 3 + 1">
                 <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
                   <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
                   </svg>
                 </span>
               </button>
-              <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 group" @click="proximoSlide">
+              <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value % 3) + 1">
                 <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
                   <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -209,117 +196,115 @@
         </footer>
     </div>
 
-  <script src="../js/vue.js"></script>
+    <script src="../../script/vue3.js"></script>
 
     <script>
 
-      new Vue({
-        el: '.app',
-        data: { 
-          index: 1,
-          tot: 0,
-          textoPesquisa: '',
-          viewCarrinho: false,
-          carrinho: [
-            //{ idProduto: 1, qtdP: 5, index: 0 }
-          ],
-          produtos: {
+      const { createApp, ref, watch, onMounted } = Vue;
+
+      createApp({
+        setup(){
+
+          let index = ref(1); //slide
+          let tot = ref(0);
+          let textoPesquisa = ref('');
+          let viewCarrinho = ref(false);
+          const topicos = ref(['Mouse', 'Teclado', 'Headphone', 'Microfone'])
+          const carrinho = ref([
+            // { idProduto: 1, qtdP: 5, index: 0 }
+          ]);
+    
+          const produtos = ref({
             lancamentos: [
-              { id: 0, nome: 'Teclado Mecânico Gamer Mancer Ghoul MK2, RGB, ABNT2', preco: 286.45 , favorito: false },
-              { id: 1, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82 , favorito: false },
-              { id: 2, nome: 'Teclado Mecânico Gamer Mancer Onyx MK2, RGB, ABNT2', preco: 313.33 , favorito: false },
-              { id: 3, nome: 'Headset Gamer Mancer Ameth Purple Edition', preco: 247.05 , favorito: false }
+              { id: 0, nome: 'Teclado Mecânico Gamer Mancer Ghoul MK2, RGB, ABNT2', preco: 286.45, favorito: false },
+              { id: 1, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
+              { id: 2, nome: 'Teclado Mecânico Gamer Mancer Onyx MK2, RGB, ABNT2', preco: 313.33, favorito: false },
+              { id: 3, nome: 'Headset Gamer Mancer Ameth Purple Edition', preco: 247.05, favorito: false },
             ],
-            maisVendidos:[
+            maisVendidos: [
               { id: 4, nome: 'Headset Gamer Mancer Twilight Rainbow', preco: 176.35, favorito: false },
               { id: 5, nome: 'Mouse Gamer Mancer Lead 2, RGB, 12400DPI, 7 Botões, Preto, MCR-LEAM2-RGB01', preco: 94.11, favorito: false },
               { id: 6, nome: 'Microfone Mancer Horcrux PFT, RGB, USB, Preto, MCR-HCRPFT-BL01', preco: 305.77, favorito: false },
-              { id: 7, nome: 'Mousepad Gamer Mancer Dark Scroll, RGB, Grande, 800X300X3mm, MCR-DSR-RGBGR01', preco: 117.64, favorito: false }
+              { id: 7, nome: 'Mousepad Gamer Mancer Dark Scroll, RGB, Grande, 800X300X3mm, MCR-DSR-RGBGR01', preco: 117.64, favorito: false },
             ],
-            destaques:[
+            destaques: [
               { id: 8, nome: 'Base Para Notebook Mancer Kadmus, até 17 POL, Preto, MCR-KDMS-BL01', preco: 141.16, favorito: false },
               { id: 9, nome: 'Caixa De Som Mancer Airon, Rainbow, 8W rms, Preto, MCR-ARN-RBW01', preco: 202.82, favorito: false },
-              { id: 10, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82 , favorito: false },
-              { id: 11, nome: 'Water Cooler Mancer Mystic G1, ARGB, 120mm', preco: 211.75, favorito: false }
+              { id: 10, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
+              { id: 11, nome: 'Water Cooler Mancer Mystic G1, ARGB, 120mm', preco: 211.75, favorito: false },
             ],
-          },
-        },
-
-        created () {
-          setInterval(() => {
-            this.index = (this.index % 3) + 1;
-          }, 4000);
-        },
-
-        methods: {
-
-          proximoSlide() { this.index = (this.index % 3) + 1 },
-
-          anteriorSlide() { this.index = (this.index - 2 + 3) % 3 + 1 },
-
-          alterarValorQtdP(idProduto, qtdN) {
-
-            for(var i = 0; i < this.carrinho.length; i++){
-              
-              if (this.carrinho[i]['idProduto'] == idProduto) {
-                this.carrinho[i]['qtdP'] = qtdN;
+          });
+    
+          const proximoSlide = () => {
+            index.value = (index.value % 3) + 1;
+          };
+    
+          const anteriorSlide = () => {
+            index.value = (index.value - 2 + 3) % 3 + 1;
+          };
+    
+          const alterarValorQtdP = (idProduto, qtdN) => {
+            carrinho.value.forEach((item) => {
+              if (item.idProduto === idProduto) {
+                item.qtdP = qtdN;
               }
-
-            }
-
-          },
-
-          toggleOpacidade(event, el) {
-
-            if(el.favorito == false){
-              
-              var coracaoImg = event.currentTarget.firstChild.lastChild
-              
-              if(event.type == 'mouseover'){
-                coracaoImg.classList.remove('opacity-0')
-                coracaoImg.classList.add('opacity-100')
-              }else{
-                coracaoImg.classList.remove('opacity-100')
-                coracaoImg.classList.add('opacity-0')
+            });
+          };
+    
+          const toggleOpacidade = (event, el) => {
+            if (!el.favorito) {
+              const coracaoImg = event.currentTarget.firstChild.lastChild;
+              if (event.type === 'mouseover') {
+                coracaoImg.classList.remove('opacity-0');
+                coracaoImg.classList.add('opacity-100');
+              } else {
+                coracaoImg.classList.remove('opacity-100');
+                coracaoImg.classList.add('opacity-0');
               }
             }
-
-          },
-
-        },
-
-        watch: {
-          carrinho: {
-            handler() { // define a função que será executada quando o valor observado mudar
-              this.tot = 0;
-
-              for (var i = 0; i < this.carrinho.length; i++) {
-                var prod = this.produtos.lancamentos.find(p => p.id === this.carrinho[i].idProduto) ||
-                  this.produtos.maisVendidos.find(p => p.id === this.carrinho[i].idProduto) ||
-                  this.produtos.destaques.find(p => p.id === this.carrinho[i].idProduto);
-
-                if (prod) {
-                  this.tot += prod.preco * this.carrinho[i].qtdP;
-                }
+          };
+    
+          watch(carrinho, () => {
+            tot.value = 0;
+            carrinho.value.forEach((item) => {
+              const prod = produtos.value.lancamentos.find((p) => p.id === item.idProduto) ||
+                          produtos.value.maisVendidos.find((p) => p.id === item.idProduto) ||
+                          produtos.value.destaques.find((p) => p.id === item.idProduto);
+    
+              if (prod) {
+                tot.value += prod.preco * item.qtdP;
               }
-            },
-            deep: true // garante que o watcher seja acionado para mudanças em propriedades aninhadas dentro do array carrinho
-          },
-
-          textoPesquisa(val) {
-            if(val != ''){
-              var pe = this.produtos.lancamentos.filter(p => p.nome.match(val)) && 
-              this.produtos.maisVendidos.filter(p => p.nome.match(val)) &&
-              this.produtos.destaques.filter(p => p.nome.match(val))
-              console.log(pe)
-            }else{
-
+            });
+          }, { deep: true });
+    
+          watch(textoPesquisa, (val) => {
+            if (val !== '') {
+              const pe = produtos.value.lancamentos.filter((p) => p.nome.match(val)) &&
+                        produtos.value.maisVendidos.filter((p) => p.nome.match(val)) &&
+                        produtos.value.destaques.filter((p) => p.nome.match(val));
+              console.log(pe);
             }
+          });
+    
+          onMounted(() => {
+            setInterval(() => {
+              index.value = (index.value % 3) + 1;
+            }, 4000);
+          });
+    
+          return{
+            index,
+            tot,
+            textoPesquisa,
+            viewCarrinho,
+            produtos,
+            carrinho,
+            alterarValorQtdP,
+            toggleOpacidade,
+            topicos
           }
-
         }
-
-      });
+      }).mount('#app')
 
     </script>
 </body>
