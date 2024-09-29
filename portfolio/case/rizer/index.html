@@ -9,303 +9,203 @@
 </head>
 
 <body class="m-0 font-sans">
-    <div class="w-full h-full" id="app">
+  <div class="w-full h-full" id="app">
 
-        <header class="py-5 px-20 max-lg:px-10 grid grid-cols-4 max-lg:grid-cols-1 gap-4">
-          <div class="fs-1 flex text-5xl max-lg:justify-self-center font-mono">RI <div class="text-purple-800">Z</div> ER</div>
-          <div class="col-span-2 flex border p-3 gap-3 rounded-full">
-              <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
-              <input v-model="textoPesquisa" class="w-full focus:outline-none bg-transparent cursor-no-drop" type="search" placeholder="O que deseja comprar hoje...">
-          </div>
-          <div class="flex justify-end gap-4">
-            <div @click="viewCarrinho = !viewCarrinho" class="relative flex" :class="[carrinho.length == 0 ? 'cursor-no-drop' : 'cursor-pointer']">
-              <div class="absolute p-1 h-[25px] w-[25px] right-[-10px] items-center justify-center flex text-xs rounded-full bg-purple-800 text-white font-semibold	" v-text="carrinho.length"></div>
-              <img class="stroke-2 w-8" src="imgs/carrinho.svg" alt="carrinho">
-            </div> 
-            <img class="stroke-2 w-8 cursor-no-drop" src="imgs/perfil.svg" alt="perfil">
-            </div>
-        </header>
-
-        <div class="rounded-lg z-50 absolute right-6 text-gray-800 max-h-56 w-86 bg-white overflow-auto" v-if="viewCarrinho && carrinho.length != 0">
-          
-          <div class="border-b py-1 px-4" v-for="(c, index) in carrinho">
-
-            <div class="grid grid-cols-4 gap-2 items-center" v-if="produtos.lancamentos[c.index].id == c.idProduto" :key="c.idProduto">
-              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-              <div class="col-span-2">
-                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.lancamentos[c.index].nome }}</div>
-                <div>R$ {{ (produtos.lancamentos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-              </div>
-              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-            </div>
-
-            <div class="grid grid-cols-4 gap-2 items-center" v-else-if="produtos.maisVendidos[c.index].id == c.idProduto">
-              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-              <div class="col-span-2">
-                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.maisVendidos[c.index].nome }}</div>
-                <div>R$ {{ (produtos.maisVendidos[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-              </div>
-              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-            </div>
-
-            <div class="grid grid-cols-4 gap-2 items-center"  v-else-if="produtos.destaques[c.index].id == c.idProduto">
-              <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
-              <div class="col-span-2">
-                <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos.destaques[c.index].nome }}</div>
-                <div>R$ {{ (produtos.destaques[c.index].preco * c.qtdP).toString().replace('.', ',') }} ( {{ c.qtdP }} )</div>
-              </div>
-              <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(index, 1)">
-            </div>     
-          </div>
-
-          <div class="flex justify-between p-4">
-            <div><b>Total de itens:</b> {{ carrinho.length }}</div>
-            <div><b>Valor total:</b> R$ {{ tot.toString().replace('.', ',') }}</div>
-          </div>
+    <header class="py-5 px-20 max-lg:px-10 grid grid-cols-4 max-lg:grid-cols-1 gap-4">
+      <div class="fs-1 flex text-5xl max-lg:justify-self-center font-mono">RI <div class="text-purple-800">Z</div> ER</div>
+      <div class="col-span-2 flex border p-3 gap-3 rounded-full">
+          <img class="stroke-2 w-5" src="imgs/lupa.svg" alt="lupa">
+          <input v-model="textoPesquisa" class="w-full focus:outline-none bg-transparent" type="search" placeholder="O que deseja comprar hoje...">
+      </div>
+      <div class="flex justify-end gap-4 max-lg:justify-center">
+        <div @click="viewCarrinho = !viewCarrinho" class="relative flex" :class="[carrinho.length == 0 ? 'cursor-no-drop' : 'cursor-pointer']">
+          <div class="absolute p-1 h-[25px] w-[25px] right-[-10px] items-center justify-center flex text-xs rounded-full bg-purple-800 text-white font-semibold	" v-text="carrinho.length"></div>
+          <img class="stroke-2 w-8" src="imgs/carrinho.svg" alt="carrinho">
+        </div> 
+        <img class="stroke-2 w-8 cursor-no-drop" src="imgs/perfil.svg" alt="perfil">
         </div>
+    </header>
 
-        <div class="py-5 px-20 max-lg:px-10 bg-purple-800 flex gap-20 justify-center text-center">
-          <a v-for="(t, i) in topicos" href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
-            <img :src="'imgs/at' + (i + 1) + '.svg'" :alt="t" class="w-8 cursor-no-drop">
-            <div>{{ t }}</div>
-          </a>
+    <div class="rounded-lg z-50 absolute right-6 text-gray-800 max-h-56 w-86 bg-white overflow-auto" v-if="viewCarrinho && carrinho.length != 0">
+      
+      <div class="border-b py-1 px-4" v-for="(c, i) in carrinho">
+
+        <div class="grid grid-cols-4 gap-2 items-center" :key="c.idProduto">
+          <img class="object-contain size-24 justify-self-center" :src="'imgs/' + c.idProduto + '.jpg'" :alt="c.idProduto">
+          <div class="col-span-2">
+            <div class="font-semibold overflow-hidden line-clamp-2 mb-0.5">{{ produtos[c.indicador].find((p) => p.id === c.idProduto)?.nome }}</div>
+            <div>R$ {{ (produtos[c.indicador].find((p) => p.id === c.idProduto)?.preco * c.qtdP).toString().replace('.', ',') }} ( x{{ c.qtdP }} )</div>
+          </div>
+          <img class="object-contain justify-self-center cursor-pointer hover:scale-95 transition ease-in-out delay-100 size-6" src="imgs/trash.svg" alt="trash" @click="carrinho.splice(i, 1)">
         </div>
-    
-        <main>
-          <div id="default-carousel" class="py-5 px-20 relative w-full" data-carousel="slide">
+      </div>
 
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-              <div class="h-full flex">
-                <img :src="'imgs/b' + n + '.jpg'" class="w-full object-cover" v-for="n in 3" :key="n" :class="{ 'hidden': index != n }">
-              </div>
-              
-              <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                <button v-for="n in 3" type="button" class="w-3 h-3 rounded-full bg-gray-700" :class="[ index == n ? 'bg-purple-800' : 'bg-gray-700' ]" @click="index = n"></button>
-              </div>
-              
-              <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value - 2 + 3) % 3 + 1">
-                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
-                  <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                  </svg>
-                </span>
-              </button>
-              <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value % 3) + 1">
-                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
-                  <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <div class="py-5 px-20" id="lancamentos">
-            <div class="text-2xl border-4 border-transparent border-b-purple-800 pb-2 mb-2">Lançamentos</div>
-
-            <div class="grid grid-cols-4 gap-2">
-              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid border-2 border-gray-100 p-4 m-4 rounded-lg" 
-              @mouseover="toggleOpacidade($event, produtos.lancamentos[index])" 
-              @mouseleave="toggleOpacidade($event, produtos.lancamentos[index])"
-                v-for="(l, index) in produtos.lancamentos" :key="l.id">
-                <div class="relative">
-                  <img class="w-full" :src="'imgs/' + l.id + '.jpg'">
-                  <svg @click="l.favorito = !l.favorito" class="opacity-0 transition-opacity absolute top-0 w-6 right-0"
-                    xmlns="http://www.w3.org/2000/svg" :fill="[l.favorito == false ? 'none' : '#6b21a8']" viewBox="0 0 24 24" 
-                    stroke-width="1.5" stroke="#6b21a8" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                  </svg>
-                </div> 
-                <div class="mb-3 mt-3 font-semibold overflow-hidden line-clamp-2">{{ l.nome }}</div>
-                <div>
-                  <span class="text-purple-800 font-bold">R$ {{ l.preco.toString().replace('.', ',') }}</span>
-                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até <div class="text-purple-800 font-semibold"> 12x</div> de<div class="text-purple-800 font-semibold"> {{ (l.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
-                  <button v-if="!(carrinho.find(c => c.idProduto === l.id))" class="border-2 border-purple-800 bg-purple-800 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="carrinho.push({ idProduto: l.id, qtdP: 1, index: index })"><img class="w-6" src="imgs/carrinhob.svg" alt="carrinho"> Adicionar</button>
-                  <input v-else @change="alterarValorQtdP(l.id, $event.target.value)" type="number" min="1" max="20" value="1" class="border-2 border-purple-800 p-2 rounded-lg w-full focus:outline-none">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="py-5 px-20" id="maisVendidos">
-            <div class="text-2xl border-4 border-transparent border-b-purple-800 pb-2 mb-2">Mais vendidos</div>
-
-            <div class="grid grid-cols-4 gap-2">
-              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid 
-              border-2 border-gray-100 p-4 m-4 rounded-lg" 
-              @mouseover="toggleOpacidade($event, produtos.maisVendidos[index])" 
-              @mouseleave="toggleOpacidade($event, produtos.maisVendidos[index])"
-              v-for="(mv, index) in produtos.maisVendidos" :key="mv.id">
-                <div class="relative">
-                  <img class="w-full" :src="'imgs/' + mv.id + '.jpg'">
-                  <svg @click="mv.favorito = !mv.favorito" class="opacity-0 transition-opacity absolute top-0 w-6 right-0"
-                  xmlns="http://www.w3.org/2000/svg" :fill="[mv.favorito == false ? 'none' : '#6b21a8']" viewBox="0 0 24 24" 
-                  stroke-width="1.5" stroke="#6b21a8" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                  </svg>                
-                </div> 
-                <div class="mb-3 mt-3 font-semibold overflow-hidden line-clamp-2">{{ mv.nome }}</div>
-                <div>
-                  <span class="text-purple-800 font-bold">R$ {{ mv.preco.toString().replace('.', ',') }}</span>
-                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até<div class="text-purple-800 font-semibold"> 12x</div> de<div class="text-purple-800 font-semibold"> {{ (mv.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
-                  <button v-if="!(carrinho.find(c => c.idProduto === mv.id))" class="border-2 border-purple-800 bg-purple-800 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="carrinho.push({ idProduto: mv.id, qtdP: 1, index: index })"><img class="w-6" src="imgs/carrinhoB.svg" alt=""> Adicionar</button>
-                  <input v-else @change="alterarValorQtdP(mv.id, $event.target.value)" type="number" min="1" max="20" value="1" class="border-2 border-purple-800 p-2 rounded-lg w-full focus:outline-none">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="py-5 px-20" id="destaques">
-            <div class="text-2xl border-4 border-transparent border-b-purple-800 pb-2 mb-2">Destaques</div>
-
-            <div class="grid grid-cols-4 gap-2">
-              <div class="ease-out duration-300 cursor-pointer shadow-md border-solid 
-              border-2 border-gray-100 p-4 m-4 rounded-lg" 
-              @mouseover="toggleOpacidade($event, produtos.destaques[index])" 
-              @mouseleave="toggleOpacidade($event, produtos.destaques[index])"
-              v-for="(d, index) in produtos.destaques" :key="d.id">
-                <div class="relative">
-                  <img class="w-full" :src="'imgs/' + d.id + '.jpg'">
-                  <svg @click="d.favorito = !d.favorito" class="opacity-0 transition-opacity absolute top-0 w-6 right-0"
-                    xmlns="http://www.w3.org/2000/svg" :fill="[d.favorito == false ? 'none' : '#6b21a8']" viewBox="0 0 24 24" 
-                    stroke-width="1.5" stroke="#6b21a8" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                  </svg>
-                </div> 
-                <div class="mb-3 mt-3 font-semibold overflow-hidden line-clamp-2">{{ d.nome }}</div>
-                <div>
-                  <span class="text-purple-800 font-bold">R$ {{ d.preco.toString().replace('.', ',') }}</span>
-                  <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até<div class="text-purple-800 font-semibold"> 12x</div> de<div class="text-purple-800 font-semibold"> {{ (d.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
-                  <button v-if="!(carrinho.find(c => c.idProduto === d.id))" class="border-2 border-purple-800 bg-purple-800 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="carrinho.push({ idProduto: d.id, qtdP: 1, index: index })"><img class="w-6" src="imgs/carrinhoB.svg"> Adicionar</button>
-                  <input v-else @change="alterarValorQtdP(d.id, $event.target.value)" type="number" min="1" max="20" value="1" class="border-2 border-purple-800 p-2 rounded-lg w-full focus:outline-none">
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-    
-        <footer class="grid grid-cols-2 bg-gray-100 text-center py-5 px-20">
-            <p>&copy; 2024 Rizer</p>
-            <div class="flex gap-3 justify-center text-bold">
-              <a class="cursor-no-drop hover:text-purple-800 transition ease-in-out delay-100" href="#">Mouse</a>
-              <a class="cursor-no-drop hover:text-purple-800 transition ease-in-out delay-100" href="#">Teclado</a>
-              <a class="cursor-no-drop hover:text-purple-800 transition ease-in-out delay-100" href="#">Headset</a>
-              <a class="cursor-no-drop hover:text-purple-800 transition ease-in-out delay-100" href="#">Microfone</a>
-            </div>
-        </footer>
+      <div class="flex justify-between p-4">
+        <div><b>Total de itens:</b> {{ carrinho.length }}</div>
+        <div><b>Valor total:</b> R$ {{ calc() }}</div>
+      </div>
     </div>
 
-    <script src="../../script/vue3.js"></script>
+    <div class="py-5 w-full px-20 max-lg:px-10 bg-purple-800 flex gap-20 max-lg:gap-4 max-lg:flex-wrap justify-center text-center">
+      <a v-for="(t, i) in topicos" href="#" class="p-3 hover:scale-95 transition ease-in-out delay-100 text-white flex flex-col items-center">
+        <img :src="'imgs/at' + (i + 1) + '.svg'" :alt="t" class="w-8 cursor-no-drop">
+        <div>{{ t }}</div>
+      </a>
+    </div>
 
-    <script>
+    <div id="container">
+      <div id="default-carousel" :class="resultPes.length != 0 ? 'hidden' : 'show'" class="py-5 px-20 max-lg:px-10 relative w-full" data-carousel="slide">
 
-      const { createApp, ref, watch, onMounted } = Vue;
+        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+          <div class="h-full flex">
+            <img :src="'imgs/b' + n + '.jpg'" class="w-full object-cover" v-for="n in 3" :key="n" :class="{ 'hidden': index != n }">
+          </div>
+          
+          <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+            <button v-for="n in 3" type="button" class="w-3 h-3 rounded-full bg-gray-700" :class="[ index == n ? 'bg-purple-800' : 'bg-gray-700' ]" @click="index = n"></button>
+          </div>
+          
+          <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value - 2 + 3) % 3 + 1">
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
+              <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+              </svg>
+            </span>
+          </button>
+          <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 group" @click="index.value = (index.value % 3) + 1">
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:ring-4 group-focus:ring-transparent">
+              <svg class="w-4 h-4 text-purple-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
 
-      createApp({
-        setup(){
+      <div v-for="pp in prod" class="py-5 px-20 max-lg:px-10" :id="pp">
+        <div class="text-2xl border-4 border-transparent border-b-purple-800 pb-2 mb-2">{{ pp.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) }}</div>
 
-          let index = ref(1); //slide
-          let tot = ref(0);
-          let textoPesquisa = ref('');
-          let viewCarrinho = ref(false);
-          const topicos = ref(['Mouse', 'Teclado', 'Headphone', 'Microfone'])
-          const carrinho = ref([
-            // { idProduto: 1, qtdP: 5, index: 0 }
-          ]);
-    
-          const produtos = ref({
-            lancamentos: [
-              { id: 0, nome: 'Teclado Mecânico Gamer Mancer Ghoul MK2, RGB, ABNT2', preco: 286.45, favorito: false },
-              { id: 1, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
-              { id: 2, nome: 'Teclado Mecânico Gamer Mancer Onyx MK2, RGB, ABNT2', preco: 313.33, favorito: false },
-              { id: 3, nome: 'Headset Gamer Mancer Ameth Purple Edition', preco: 247.05, favorito: false },
-            ],
-            maisVendidos: [
-              { id: 4, nome: 'Headset Gamer Mancer Twilight Rainbow', preco: 176.35, favorito: false },
-              { id: 5, nome: 'Mouse Gamer Mancer Lead 2, RGB, 12400DPI, 7 Botões, Preto, MCR-LEAM2-RGB01', preco: 94.11, favorito: false },
-              { id: 6, nome: 'Microfone Mancer Horcrux PFT, RGB, USB, Preto, MCR-HCRPFT-BL01', preco: 305.77, favorito: false },
-              { id: 7, nome: 'Mousepad Gamer Mancer Dark Scroll, RGB, Grande, 800X300X3mm, MCR-DSR-RGBGR01', preco: 117.64, favorito: false },
-            ],
-            destaques: [
-              { id: 8, nome: 'Base Para Notebook Mancer Kadmus, até 17 POL, Preto, MCR-KDMS-BL01', preco: 141.16, favorito: false },
-              { id: 9, nome: 'Caixa De Som Mancer Airon, Rainbow, 8W rms, Preto, MCR-ARN-RBW01', preco: 202.82, favorito: false },
-              { id: 10, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
-              { id: 11, nome: 'Water Cooler Mancer Mystic G1, ARGB, 120mm', preco: 211.75, favorito: false },
-            ],
-          });
-    
-          const proximoSlide = () => {
-            index.value = (index.value % 3) + 1;
-          };
-    
-          const anteriorSlide = () => {
-            index.value = (index.value - 2 + 3) % 3 + 1;
-          };
-    
-          const alterarValorQtdP = (idProduto, qtdN) => {
-            carrinho.value.forEach((item) => {
-              if (item.idProduto === idProduto) {
-                item.qtdP = qtdN;
-              }
-            });
-          };
-    
-          const toggleOpacidade = (event, el) => {
-            if (!el.favorito) {
-              const coracaoImg = event.currentTarget.firstChild.lastChild;
-              if (event.type === 'mouseover') {
-                coracaoImg.classList.remove('opacity-0');
-                coracaoImg.classList.add('opacity-100');
-              } else {
-                coracaoImg.classList.remove('opacity-100');
-                coracaoImg.classList.add('opacity-0');
-              }
-            }
-          };
-    
-          watch(carrinho, () => {
-            tot.value = 0;
-            carrinho.value.forEach((item) => {
-              const prod = produtos.value.lancamentos.find((p) => p.id === item.idProduto) ||
-                          produtos.value.maisVendidos.find((p) => p.id === item.idProduto) ||
-                          produtos.value.destaques.find((p) => p.id === item.idProduto);
-    
-              if (prod) {
-                tot.value += prod.preco * item.qtdP;
-              }
-            });
-          }, { deep: true });
-    
-          watch(textoPesquisa, (val) => {
-            if (val !== '') {
-              const pe = produtos.value.lancamentos.filter((p) => p.nome.match(val)) &&
-                        produtos.value.maisVendidos.filter((p) => p.nome.match(val)) &&
-                        produtos.value.destaques.filter((p) => p.nome.match(val));
-              console.log(pe);
-            }
-          });
-    
-          onMounted(() => {
-            setInterval(() => {
-              index.value = (index.value % 3) + 1;
-            }, 4000);
-          });
-    
-          return{
-            index,
-            tot,
-            textoPesquisa,
-            viewCarrinho,
-            produtos,
-            carrinho,
-            alterarValorQtdP,
-            toggleOpacidade,
-            topicos
+        <!-- ajeitar as coisas pra quando o resultPes estiver vazio -->
+
+        <div class="grid grid-cols-4 gap-2">
+          <div class="ease-out duration-300 cursor-pointer shadow-md border-solid border-2 border-gray-100 p-4 m-4 rounded-lg" 
+          @mouseover="(e) => { if (!l.favorito) e.currentTarget.firstChild.lastChild.classList.remove('opacity-0') }"
+          @mouseleave="(e) => { if (!l.favorito) e.currentTarget.firstChild.lastChild.classList.add('opacity-0') }"
+            v-for="(l, index) in (resultPes.length == 0 ? produtos[pp] : resultPes)" :key="l.id">
+
+            <div class="relative">
+              <img class="w-full" :src="'imgs/' + l.id + '.jpg'">
+
+              <svg @click="l.favorito = !l.favorito" class="opacity-0 transition-opacity absolute top-0 w-6 right-0"
+                xmlns="http://www.w3.org/2000/svg" :fill="[l.favorito == false ? 'none' : '#6b21a8']" viewBox="0 0 24 24" 
+                stroke-width="1.5" stroke="#6b21a8" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+              </svg>
+
+            </div> 
+            <div class="mb-3 mt-3 font-semibold overflow-hidden line-clamp-2">{{ l.nome }}</div>
+            <div>
+              <span class="text-purple-800 font-bold">R$ {{ l.preco.toString().replace('.', ',') }}</span>
+              <span class="flex gap-1.5 mb-4 text-gray-800 text-xs">em até <div class="text-purple-800 font-semibold"> 12x</div> de<div class="text-purple-800 font-semibold"> {{ (l.preco / 12).toFixed(2).toString().replace('.', ',') }}</div>sem juros</span>
+              <button v-if="!(carrinho.find(c => c.idProduto === l.id))" class="border-2 border-purple-800 bg-purple-800 text-white p-2 rounded-lg w-full flex justify-center gap-2 items-center" @click="carrinho.push({ idProduto: l.id, qtdP: 1, indicador: pp })"><img class="w-6" src="imgs/carrinhob.svg" alt="carrinho"> Adicionar</button>
+              <input v-else @change="carrinho.find(c => c.idProduto == l.id).qtdP = $event.target.value" type="number" min="1" max="20" value="1" class="border-2 border-purple-800 p-2 rounded-lg w-full focus:outline-none">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="grid gap-4 grid-cols-2 max-lg:grid-cols-1 bg-gray-100 text-center py-5 px-20 max-lg:px-10">
+        <p>&copy; 2024 Rizer</p>
+
+        <div class="flex gap-3 justify-center text-bold">
+          <a v-for="(t, i) in topicos" class="cursor-no-drop hover:text-purple-800 transition ease-in-out delay-100" href="#" :key="i">{{ t }}</a>
+        </div>
+
+    </footer>
+  </div>
+
+  <script src="../../script/vue3.js"></script>
+
+  <script>
+
+    const { createApp, ref, watch, onMounted } = Vue;
+
+    createApp({
+      setup(){
+
+        let index = ref(1); //slide
+        let textoPesquisa = ref('');
+        let resultPes = ref([]);
+        let viewCarrinho = ref(false);
+        const topicos = ref(['Mouse', 'Teclado', 'Headphone', 'Microfone'])
+        const prod = ref(['lançamentos', 'maisVendidos', 'destaques'])
+        const carrinho = ref([ /* { idProduto: 1, qtdP: 5, indicador: '' } */ ]);
+  
+        const produtos = ref({
+          lançamentos: [
+            { id: 0, nome: 'Teclado Mecânico Gamer Mancer Ghoul MK2, RGB, ABNT2', preco: 286.45, favorito: false },
+            { id: 1, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
+            { id: 2, nome: 'Teclado Mecânico Gamer Mancer Onyx MK2, RGB, ABNT2', preco: 313.33, favorito: false },
+            { id: 3, nome: 'Headset Gamer Mancer Ameth Purple Edition', preco: 247.05, favorito: false },
+          ],
+          maisVendidos: [
+            { id: 4, nome: 'Headset Gamer Mancer Twilight Rainbow', preco: 176.35, favorito: false },
+            { id: 5, nome: 'Mouse Gamer Mancer Lead 2, RGB, 12400DPI, 7 Botões, Preto, MCR-LEAM2-RGB01', preco: 94.11, favorito: false },
+            { id: 6, nome: 'Microfone Mancer Horcrux PFT, RGB, USB, Preto, MCR-HCRPFT-BL01', preco: 305.77, favorito: false },
+            { id: 7, nome: 'Mousepad Gamer Mancer Dark Scroll, RGB, Grande, 800X300X3mm, MCR-DSR-RGBGR01', preco: 117.64, favorito: false },
+          ],
+          destaques: [
+            { id: 8, nome: 'Base Para Notebook Mancer Kadmus, até 17 POL, Preto, MCR-KDMS-BL01', preco: 141.16, favorito: false },
+            { id: 9, nome: 'Caixa De Som Mancer Airon, Rainbow, 8W rms, Preto, MCR-ARN-RBW01', preco: 202.82, favorito: false },
+            { id: 10, nome: 'Teclado Gamer Mancer Magma, Rainbow, ABNT2, Preto', preco: 152.82, favorito: false },
+            { id: 11, nome: 'Water Cooler Mancer Mystic G1, ARGB, 120mm', preco: 211.75, favorito: false },
+          ],
+        });
+  
+        const proximoSlide = () => {
+          index.value = (index.value % 3) + 1;
+        };
+  
+        const anteriorSlide = () => {
+          index.value = (index.value - 2 + 3) % 3 + 1;
+        };
+
+
+        const calc = () => {
+          for(let i = 0; i < carrinho.value.length; i++){
+            return produtos.value[carrinho.value[i]['indicador']].find(p => p.id == carrinho.value[i]['idProduto'])?.preco * carrinho.value[i]['qtdP'].toString().replace('.', ',')
           }
         }
-      }).mount('#app')
+  
+        watch(textoPesquisa, (val) => {
+          if (val != '') {
+            for(let i = 0; i < prod.value.length; i++){
+              resultPes.value = produtos.value[prod.value[i]].filter(p => p.nome.toLowerCase().includes(val.toLowerCase()))
+            }
+          }else{ resultPes.value = [] }
+        });
+  
+        onMounted(() => { // passagem de slide automática
+          setInterval(() => {
+            index.value = (index.value % 3) + 1;
+          }, 4000);
+        });
+  
+        return{
+          index,
+          textoPesquisa,
+          viewCarrinho,
+          produtos,
+          carrinho,
+          topicos,
+          prod,
+          calc,
+          resultPes
+        }
+      }
+    }).mount('#app')
 
-    </script>
+  </script>
 </body>
 </html>
