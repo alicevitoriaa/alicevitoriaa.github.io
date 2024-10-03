@@ -1,0 +1,90 @@
+$br: #fff;
+$pr: #000;
+$az: #6495ed;
+
+@mixin pdd(){
+    padding: 40px;
+}
+
+@keyframes rodar {
+    from {
+        transform: rotate(0deg); /* Posição inicial */
+    }
+    to {
+        transform: rotate(360deg); /* Posição final */
+    }
+}
+
+body{
+    margin: 0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    height: 100vh
+}
+
+#app{
+    @include pdd();
+    background-image: url('../imgs/fundo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: -webkit-fill-available;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+    &::before{
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: $pr;
+        opacity: 0.8;
+        position: absolute;
+    }
+    #container{
+        z-index: 10;
+    }
+    #input{
+        padding: 10px 20px;
+        background: none;
+        border: 2px solid $br;
+        border-radius: 50px;
+        display: flex;
+        gap: 10px;
+        input{
+            border: none;
+            width: 100%;
+            background: none;
+            color: $br;
+            &:focus{
+                outline: none;
+            }
+        }
+        i{
+            color: $br;
+            font-size: 25px;
+            cursor: pointer;
+            transition: all ease-in-out 0.3s;
+            &:hover{
+                color: $az;
+            }
+        }
+    }
+    #musica{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        img{
+            border-radius: 50px;
+            animation: rodar 4s linear infinite;
+        }
+        #artistas{
+            opacity: 0.5;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        #nameM{
+            opacity: 1;
+        }
+    }
+}
