@@ -6,12 +6,9 @@ $az: #6495ed;
     padding: 40px;
 }
 
-@keyframes rodar {
-    from {
-        transform: rotate(0deg); /* Posição inicial */
-    }
-    to {
-        transform: rotate(360deg); /* Posição final */
+@mixin media(){
+    @media (max-width: 480px) {
+        width: -webkit-fill-available; // preenche espaço restante
     }
 }
 
@@ -22,6 +19,7 @@ body{
 }
 
 #app{
+
     @include pdd();
     background-image: url('../imgs/fundo.jpg');
     background-position: center;
@@ -30,8 +28,11 @@ body{
     height: -webkit-fill-available;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     display: flex;
     position: relative;
+    gap: 50px;
+
     &::before{
         content: '';
         width: 100%;
@@ -40,16 +41,17 @@ body{
         opacity: 0.8;
         position: absolute;
     }
-    #container{
-        z-index: 10;
-    }
+
     #input{
         padding: 10px 20px;
+        z-index: 10;
         background: none;
         border: 2px solid $br;
         border-radius: 50px;
         display: flex;
         gap: 10px;
+        @include media();
+
         input{
             border: none;
             width: 100%;
@@ -69,22 +71,31 @@ body{
             }
         }
     }
-    #musica{
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        img{
-            border-radius: 50px;
-            animation: rodar 4s linear infinite;
-        }
-        #artistas{
-            opacity: 0.5;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        #nameM{
-            opacity: 1;
+
+    #resultadoSec {
+        background: rgba(40, 40, 40, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: $br;
+        text-align: center;
+        display: none;
+        @include pdd();
+        @include media();
+        gap: 30px;
+
+        div{
+            justify-content: center;
+            gap: 10px;
+            align-items: end;
+            img{ width: 30px; height: 30px; }
+            div{
+                font-size: 30px;
+                font-weight: 500;
+            }
         }
     }
+    
 }

@@ -1,73 +1,261 @@
 
-const resultDiv = document.getElementById('result') as HTMLDivElement;
+// Selecionando divs e afirmando que o DOM existe usando Type Assertion
+
+const r2 = document.getElementById('resultadoSec') as HTMLDivElement
+const p = document.getElementById('input') as HTMLDivElement
+const app = document.getElementById('app') as HTMLDivElement
+const val = p.children[0] as HTMLInputElement;
+const paises: string[] = [
+  "Afeganistão",
+  "Albânia",
+  "Argélia",
+  "Andorra",
+  "Angola",
+  "Antígua e Barbuda",
+  "Argentina",
+  "Armênia",
+  "Austrália",
+  "Áustria",
+  "Azerbaijão",
+  "Bahamas",
+  "Bahrein",
+  "Bangladesh",
+  "Barbados",
+  "Bielorrússia",
+  "Bélgica",
+  "Belize",
+  "Benin",
+  "Butão",
+  "Bolívia",
+  "Bósnia e Herzegovina",
+  "Botsuana",
+  "Brasil",
+  "Brunei",
+  "Bulgária",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Camboja",
+  "Camarões",
+  "Canadá",
+  "República Centro-Africana",
+  "Chade",
+  "Chile",
+  "China",
+  "Colômbia",
+  "Comores",
+  "Congo, República Democrática do",
+  "Congo, República do",
+  "Costa Rica",
+  "Croácia",
+  "Cuba",
+  "Chipre",
+  "República Tcheca",
+  "Dinamarca",
+  "Djibuti",
+  "Dominica",
+  "República Dominicana",
+  "Equador",
+  "Egito",
+  "El Salvador",
+  "Guiné Equatorial",
+  "Eritreia",
+  "Estônia",
+  "Eswatini",
+  "Etiópia",
+  "Fiji",
+  "Finlândia",
+  "França",
+  "Gabão",
+  "Gâmbia",
+  "Geórgia",
+  "Alemanha",
+  "Gana",
+  "Grécia",
+  "Granada",
+  "Guatemala",
+  "Guiné",
+  "Guiné-Bissau",
+  "Guyana",
+  "Haiti",
+  "Honduras",
+  "Hungria",
+  "Islândia",
+  "Índia",
+  "Indonésia",
+  "Irã",
+  "Iraque",
+  "Irlanda",
+  "Israel",
+  "Itália",
+  "Jamaica",
+  "Japão",
+  "Jordânia",
+  "Cazaquistão",
+  "Quênia",
+  "Kiribati",
+  "Coreia do Norte",
+  "Coreia do Sul",
+  "Kuwait",
+  "Quirguistão",
+  "Laos",
+  "Letônia",
+  "Líbano",
+  "Lesoto",
+  "Libéria",
+  "Líbia",
+  "Liechtenstein",
+  "Lituânia",
+  "Luxemburgo",
+  "Madagascar",
+  "Malawi",
+  "Malásia",
+  "Maldivas",
+  "Mali",
+  "Malta",
+  "Ilhas Marshall",
+  "Mauritânia",
+  "Maurício",
+  "México",
+  "Micronésia",
+  "Moldávia",
+  "Mônaco",
+  "Mongólia",
+  "Montenegro",
+  "Marrocos",
+  "Moçambique",
+  "Mianmar",
+  "Namíbia",
+  "Nauru",
+  "Nepal",
+  "Países Baixos",
+  "Nova Zelândia",
+  "Nicarágua",
+  "Níger",
+  "Nigéria",
+  "Macedônia do Norte",
+  "Noruega",
+  "Omã",
+  "Paquistão",
+  "Palau",
+  "Palestina",
+  "Panamá",
+  "Papua Nova Guiné",
+  "Paraguai",
+  "Peru",
+  "Filipinas",
+  "Polônia",
+  "Portugal",
+  "Catar",
+  "Romênia",
+  "Rússia",
+  "Rwanda",
+  "São Cristóvão e Nevis",
+  "Santa Lúcia",
+  "São Vicente e Granadinas",
+  "Samoa",
+  "San Marino",
+  "São Tomé e Príncipe",
+  "Arábia Saudita",
+  "Senegal",
+  "Sérvia",
+  "Seicheles",
+  "Serra Leoa",
+  "Cingapura",
+  "Eslováquia",
+  "Eslovênia",
+  "Ilhas Salomão",
+  "Somália",
+  "África do Sul",
+  "Sudão do Sul",
+  "Espanha",
+  "Sri Lanka",
+  "Sudão",
+  "Suriname",
+  "Suécia",
+  "Suíça",
+  "Síria",
+  "Taiwan",
+  "Tajiquistão",
+  "Tanzânia",
+  "Tailândia",
+  "Timor-Leste",
+  "Togo",
+  "Tonga",
+  "Trinidad e Tobago",
+  "Tunísia",
+  "Turquia",
+  "Turcomenistão",
+  "Tuvalu",
+  "Uganda",
+  "Ucrânia",
+  "Emirados Árabes Unidos",
+  "Reino Unido",
+  "Estados Unidos",
+  "Uruguai",
+  "Uzbequistão",
+  "Vanuatu",
+  "Vaticano",
+  "Venezuela",
+  "Vietnã",
+  "Iémen",
+  "Zâmbia",
+  "Zimbábue"
+];
+
+val.addEventListener("keypress", (event: KeyboardEvent) => {
+  if (event.key === "Enter") buscarClima(val.value);
+});
 
 async function buscarClima(cidade: string) {
+
   try{
+
+    if(cidade == "") throw "Digite o nome da cidade que deseja!"
+
+    if(paises.find(p => p == cidade)) throw "O valor inserido foi um pais! A busca só pode ser feita por cidades."
 
     const cm = await (await fetch(`https://api.weatherapi.com/v1/current.json?q=${cidade}&key=bb6036ddbf414034bc1223225243009`)).json();
 
-    buscarMusica(cm ? cm.location.name : cidade)
+    if(!cm) throw "Busca por clima apresentou erros! Contate o desenvolvedor."
 
-  } catch(error){
+    r2.innerHTML = `<div>${cm.location.name} - ${cm.location.country}</div>
+    <div style='display: flex'><img src='${cm.current.condition.icon}'><div>${cm.current.temp_c.toFixed()} °C</div></div>
+    <div>${infos(cm.location.localtime)}</div>`
+    
+    val.value = '';
+    r2.style.display = 'grid'
 
-    alert('Erro: ' + error);
+    buscarFoto(cidade)
 
-  }
+  } catch(e) { alert('Erro: ' + e) }
+
 }
 
-async function buscarMusica(cidade: string) {
-  try {
-    const id = '5b70263a2c0443d1a2751a297e89548e';
-    const sId = '29b3adcc9805434fad09395c0c7e2eb1';
+async function buscarFoto(cidade: string){
 
-    let tkR = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + btoa(`${id}:${sId}`) },
-      body: 'grant_type=client_credentials'
-    });
+  try{
 
-    const tk = await tkR.json();
-
-    if (!tk.access_token) {
-      throw new Error('Erro ao obter token do Spotify');
-    }
-
-    const musicaR = await fetch(`https://api.spotify.com/v1/users/search?q=${cidade}&type=track&limit=1`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${tk.access_token}`
-      }
-    });
-
-    const musica = await musicaR.json();
-
-    if (!musica || !musica.tracks || musica.tracks.total === 0) {
-      throw new Error('Nenhuma música encontrada para a cidade fornecida.');
-    }else{
+    if(cidade == "") throw "Digite o nome da cidade que deseja!"
       
-      let artistas: string = '';
+    const imgR = await (await fetch(`https://api.pexels.com/v1/search?query=${cidade}&per_page=1&page=3`, {
+    headers: { Authorization: 'LByKciHYei5hybETJzahn2oGUIKMJkQdemYq3mDDvaYfLlBCXwrqO9bd' }})).json()
 
-      if (musica.artists.length > 1) {
-          for (let i = 0; i < musica.artists.length; i++) {
-              artistas += musica.artists[i].name;
-              i < musica.artists.length - 1 ? artistas += ', ' : '' // vírgula entre os nomes
-          }
-      } else {
-          artistas = musica.artists[0].name; // Remove um sinal de igual extra
-      }
+    if(!imgR) throw "Busca por imagem obteve erros!"
+  
+    app.style.backgroundImage = `url('${imgR.photos[0].src.landscape}')`
 
-      
-      resultDiv.innerHTML = `<div id="musica">
-        <img src="${musica.album.images[2].url}" style="height: ${musica.album.images[2].height}px; width: ${musica.album.images[2].width}px">
-        <div>
-            <div id="nameM" style="font-weight: 600">${musica.name}</div>
-            <div id="artistas">${artistas}</div>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-        </div>`;
-    }
+  } catch(e) { alert('Erro: ' + e) }
 
-  } catch (error) {
-    alert('Erro: ' + error);
-  }
 }
+
+// Função infos é responsável por calcular o dia da semana pelo dia e retornar não só o dia da semana, mas também o horário e o dia atual nessa cidade
+
+function infos(dia: string){
+  const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  const d = new Date(dia)
+  dia = `${diasSemana[d.getDay()]} (${formatarZero(d.getDate())}) - ${formatarZero(d.getHours())}:${formatarZero(d.getMinutes())}`
+  return dia
+}
+
+function formatarZero(val: number){ return val <= 9 ? '0' + val : val }

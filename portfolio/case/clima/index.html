@@ -10,16 +10,14 @@
 </head>
 <body>
     <div id="app">
-        <div id="container">
-            <div id="input">
-                <input placeholder="Digite o nome da cidade"  autocomplete="off" type="text" id="cidadeI" name="cidade">
-                <i onclick="buscarClima(document.getElementById('cidadeI').value)" class="bi bi-arrow-right-short"></i>
-            </div>
+
+        <div id="input">
+            <input placeholder="Digite o nome da cidade"  autocomplete="off" type="text" id="cidadeI" name="cidade">
+            <i onclick="buscarClima(document.getElementById('cidadeI').value)" class="bi bi-arrow-right-short"></i>
         </div>
           
+        <div id="resultadoSec"></div>
 
-        <div id="result"></div>
-        <div id="result2"></div>
     </div>
 
     <script src="build/index.js"></script>
